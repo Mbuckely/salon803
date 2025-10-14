@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ServiceCard } from "@/components/ServiceCard";
 import { Footer } from "@/components/Footer";
+import { Navigation } from "@/components/Navigation";
+import { Helmet } from "react-helmet";
 import servicesBg from "@/assets/services-bg.jpg";
 
 const allServices = [
@@ -29,6 +31,18 @@ const Services = () => {
 
   return (
     <main className="min-h-screen">
+      <Helmet>
+        <title>Salon 803 — Full Service Menu & Pricing | North Houston</title>
+        <meta 
+          name="description" 
+          content="Explore Salon 803's full service menu including sew-ins, wig installs, silk press, braids, and more — all at affordable prices." 
+        />
+        <meta 
+          name="keywords" 
+          content="Salon 803 services, Houston hair salon services, sew-in prices Houston, wig install Houston, silk press North Houston, braids Houston" 
+        />
+      </Helmet>
+      <Navigation />
       <div 
         className="relative min-h-screen py-24 px-4"
         style={{
@@ -61,6 +75,7 @@ const Services = () => {
                 title={service.title}
                 description={service.description}
                 price={service.price}
+                aria-label={`${service.title} — ${service.price}`}
               />
             ))}
           </div>
