@@ -1,27 +1,366 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salon 803 | Award-Winning Hair Care in North Houston</title>
-    <meta name="description" content="Flawless styles and full-service hair care in North Houston — without the hassle or high cost. Visit Salon 803 for expert styling, braiding, and more." />
-    <meta name="author" content="Salon 803" />
+    <meta name="description" content="Flawless styles and full-service hair care in North Houston — without the hassle or high cost. Visit Salon 803 for expert styling, braiding, and more.">
+    <meta name="author" content="Salon 803">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Salon 803 | Award-Winning Hair Care in North Houston">
+    <meta property="og:description" content="Flawless styles and full-service hair care — without the hassle or high cost.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Salon803Houston">
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Award-Winning Hair Care in North Houston</h1>
+                <p class="hero-subtitle">Flawless styles and full-service hair care — without the hassle or high cost.</p>
+                <button class="btn btn-cta" onclick="scrollToSection('mission')">Start Your Journey</button>
+                
+                <div class="social-links">
+                    <a href="https://instagram.com/Salon803Houston" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Follow us on Facebook">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Follow us on TikTok">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Subscribe on YouTube">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                            <path d="m10 15 5-3-5-3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <meta property="og:title" content="Salon 803 | Award-Winning Hair Care in North Houston" />
-    <meta property="og:description" content="Flawless styles and full-service hair care — without the hassle or high cost." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Mission Section -->
+    <section id="mission" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="section-text">
+                Welcome to Salon 803, North Houston's newest go-to destination for quality hair care at prices you can afford. 
+                We're an innovative and up-and-coming salon dedicated to providing flawless styles and full-service hair care 
+                without the hassle or high cost.
+            </p>
+            <div class="section-cta">
+                <button class="btn btn-cta" onclick="scrollToSection('passion')">Our Passion</button>
+            </div>
+        </div>
+    </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Salon803Houston" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Passion Section -->
+    <section id="passion" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Passion</h2>
+            <p class="section-text">
+                At Salon 803, we love all things beauty. Our passion for the industry has made us a trusted destination 
+                for modern hair care, custom styling, and expert service. Whether you're looking for a fresh new look 
+                or a classic style, our talented team is here to make you feel confident and beautiful.
+            </p>
+            <div class="section-cta">
+                <button class="btn btn-cta" onclick="scrollToSection('services')">Explore Our Services</button>
+            </div>
+        </div>
+    </section>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Services Section -->
+    <section id="services" class="section gradient-section">
+        <div class="container-wide">
+            <h2 class="section-title">You'll Love…</h2>
+            <p class="section-subtitle">Professional services tailored to your beauty needs</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Traditional Sew-In</h3>
+                    <p>Classic protective style with natural-looking results</p>
+                    <div class="price">$75</div>
+                </div>
+                <div class="service-card">
+                    <h3>Versatile Sew-In</h3>
+                    <p>Flexible styling options for any occasion</p>
+                    <div class="price">$115</div>
+                </div>
+                <div class="service-card">
+                    <h3>Closure Sew-In</h3>
+                    <p>Seamless closure for a natural finish</p>
+                    <div class="price">$110</div>
+                </div>
+                <div class="service-card">
+                    <h3>Frontal Sew-In</h3>
+                    <p>Hairline perfection with frontal installation</p>
+                    <div class="price">$125</div>
+                </div>
+                <div class="service-card">
+                    <h3>Closure Wig Install</h3>
+                    <p>Professional wig installation with closure</p>
+                    <div class="price">$135</div>
+                </div>
+                <div class="service-card">
+                    <h3>Frontal Wig Install</h3>
+                    <p>Flawless frontal wig application</p>
+                    <div class="price">$145</div>
+                </div>
+                <div class="service-card">
+                    <h3>Traditional Quick Weave</h3>
+                    <p>Fast, beautiful protective styling</p>
+                    <div class="price">$65</div>
+                </div>
+                <div class="service-card">
+                    <h3>Closure Quick Weave</h3>
+                    <p>Quick weave with natural closure</p>
+                    <div class="price">$75</div>
+                </div>
+                <div class="service-card">
+                    <h3>Frontal Quick Weave</h3>
+                    <p>Quick weave with frontal piece</p>
+                    <div class="price">$85</div>
+                </div>
+                <div class="service-card">
+                    <h3>Hair Wash</h3>
+                    <p>Deep cleansing and conditioning treatment</p>
+                    <div class="price">$25</div>
+                </div>
+                <div class="service-card">
+                    <h3>Circle Braids</h3>
+                    <p>Intricate braiding patterns</p>
+                    <div class="price">$15</div>
+                </div>
+                <div class="service-card">
+                    <h3>Blow Out</h3>
+                    <p>Professional blow dry and styling</p>
+                    <div class="price">$45</div>
+                </div>
+                <div class="service-card">
+                    <h3>Silk Press</h3>
+                    <p>Smooth, silky straight styling</p>
+                    <div class="price">$35</div>
+                </div>
+                <div class="service-card">
+                    <h3>Take Down</h3>
+                    <p>Safe and gentle style removal</p>
+                    <div class="price">$15</div>
+                </div>
+                <div class="service-card">
+                    <h3>Detailed Cut</h3>
+                    <p>Precision cutting and shaping</p>
+                    <div class="price">$10</div>
+                </div>
+                <div class="service-card">
+                    <h3>With Adhesive</h3>
+                    <p>Secure adhesive application</p>
+                    <div class="price">$10</div>
+                </div>
+                <div class="service-card">
+                    <h3>Thick Hair</h3>
+                    <p>Additional service for thick hair</p>
+                    <div class="price">$5</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Location</h2>
+            <p class="section-text">
+                Visit us in the heart of North Houston! Salon 803 is conveniently located for clients across the area, 
+                with a welcoming, modern atmosphere and expert stylists ready to serve you.
+            </p>
+            
+            <div class="location-card">
+                <svg class="icon-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <div>
+                    <p class="location-name">Salon 803</p>
+                    <p>4444 Cypress Creek Parkway, STE 30</p>
+                    <p>Houston, TX 77068</p>
+                </div>
+            </div>
+            
+            <div class="section-cta">
+                <button class="btn btn-cta" onclick="openDirections()">Get Directions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Team Section -->
+    <section id="join-team" class="section gradient-section">
+        <div class="container">
+            <h2 class="section-title">Join Our Team</h2>
+            <p class="section-text">
+                Are you a passionate stylist or braider looking for a fresh start in a supportive and professional salon? 
+                Salon 803 is growing — and we're looking for talented individuals to join our team.
+            </p>
+            
+            <div class="benefits-section">
+                <h3>What We Offer:</h3>
+                <ul class="benefits-list">
+                    <li>Flexible schedule options</li>
+                    <li>High-traffic location to build your clientele</li>
+                    <li>Positive, professional atmosphere</li>
+                    <li>Marketing support + social media features</li>
+                    <li>Product discounts & networking opportunities</li>
+                </ul>
+            </div>
+            
+            <form id="joinTeamForm" class="team-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="availability">Weekly Availability *</label>
+                        <input type="text" id="availability" name="availability" placeholder="e.g., Mon-Fri 9am-5pm" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="portfolio">Upload Portfolio (optional)</label>
+                    <input type="file" id="portfolio" name="portfolio" accept="image/*,.pdf">
+                </div>
+                
+                <div class="form-group">
+                    <label for="social">Social Media Handles (optional)</label>
+                    <input type="text" id="social" name="social" placeholder="@yourusername">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Tell us about yourself and why you'd be a great fit! *</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-cta">Apply Now</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-text">
+                We'd love to hear from you! Whether you're a new client, returning guest, or future team member, 
+                we're here to help.
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <svg class="icon-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <h3>Address</h3>
+                    <p>4444 Cypress Creek Parkway<br>STE 30<br>Houston, TX 77068</p>
+                </div>
+                
+                <div class="contact-card">
+                    <svg class="icon-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <h3>Phone</h3>
+                    <p>(832) 657-2126</p>
+                </div>
+                
+                <div class="contact-card">
+                    <svg class="icon-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="20" height="16" x="2" y="4" rx="2"/>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                    <h3>Email</h3>
+                    <p>info@salon803.com</p>
+                </div>
+            </div>
+            
+            <div class="contact-buttons">
+                <button class="btn btn-cta" onclick="handleCall()">Call Now</button>
+                <button class="btn btn-primary" onclick="handleEmail()">Email Us</button>
+                <button class="btn btn-secondary" onclick="openDirections()">Get Directions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3 class="footer-title">Salon 803</h3>
+            
+            <div class="footer-social">
+                <a href="https://instagram.com/Salon803Houston" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Follow us on Facebook">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Follow us on TikTok">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Subscribe on YouTube">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                        <path d="m10 15 5-3-5-3z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; <span id="currentYear"></span> Salon 803. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
 </html>

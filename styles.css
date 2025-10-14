@@ -1,0 +1,444 @@
+/* Salon 803 Static Site Styles */
+
+/* CSS Variables - Design System */
+:root {
+    /* Colors (HSL) */
+    --background: hsl(0, 0%, 100%);
+    --foreground: hsl(30, 20%, 15%);
+    --card: hsl(0, 0%, 100%);
+    --card-foreground: hsl(30, 20%, 15%);
+    
+    /* Soft Teal Primary */
+    --primary: hsl(172, 76%, 40%);
+    --primary-foreground: hsl(0, 0%, 100%);
+    --primary-light: hsl(172, 65%, 90%);
+    
+    /* Deep Brown Secondary */
+    --secondary: hsl(30, 50%, 20%);
+    --secondary-foreground: hsl(0, 0%, 100%);
+    
+    /* Red CTA Accent */
+    --accent: hsl(0, 84%, 55%);
+    --accent-foreground: hsl(0, 0%, 100%);
+    
+    --muted: hsl(30, 10%, 96%);
+    --muted-foreground: hsl(30, 10%, 45%);
+    
+    --border: hsl(30, 15%, 88%);
+    
+    /* Fonts */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(172, 76%, 40%, 0.9), hsl(30, 50%, 20%, 0.8));
+    --gradient-section: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(172, 65%, 98%));
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 40px -10px hsl(30, 50%, 20%, 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(172, 76%, 40%, 0.15);
+    
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-serif);
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('src/assets/salon-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-hero);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    max-width: 800px;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.social-links a {
+    color: white;
+    transition: var(--transition-smooth);
+}
+
+.social-links a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Sections */
+.section {
+    padding: 6rem 1rem;
+}
+
+.gradient-section {
+    background: var(--gradient-section);
+}
+
+.container {
+    max-width: 64rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container-wide {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Section Headers */
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--muted-foreground);
+    margin-bottom: 3rem;
+}
+
+.section-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--foreground);
+}
+
+.section-cta {
+    margin-top: 2rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    text-decoration: none;
+}
+
+.btn-cta {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+    box-shadow: var(--shadow-elegant);
+}
+
+.btn-cta:hover {
+    background-color: hsl(0, 84%, 50%);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-card);
+}
+
+.btn-primary:hover {
+    background-color: hsl(172, 76%, 35%);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    box-shadow: var(--shadow-card);
+}
+
+.btn-secondary:hover {
+    background-color: hsl(30, 50%, 25%);
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+    text-align: left;
+}
+
+.service-card:hover {
+    box-shadow: var(--shadow-elegant);
+    transform: translateY(-4px);
+}
+
+.service-card h3 {
+    font-size: 1.25rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+
+.service-card p {
+    color: var(--muted-foreground);
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Location Card */
+.location-card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-elegant);
+    margin: 2rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.location-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--secondary);
+}
+
+.icon-primary {
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+/* Join Team Section */
+.benefits-section {
+    margin: 2rem 0;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.benefits-section h3 {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.benefits-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.benefits-list li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.benefits-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* Forms */
+.team-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: left;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px hsl(172, 76%, 40%, 0.1);
+}
+
+/* Contact Grid */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.contact-card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-card);
+}
+
+.contact-card h3 {
+    font-weight: 600;
+    color: var(--secondary);
+    margin: 1rem 0 0.5rem;
+}
+
+.contact-card p {
+    font-size: 0.875rem;
+}
+
+.contact-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    padding: 3rem 1rem;
+}
+
+.footer-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.footer-social a {
+    color: var(--secondary-foreground);
+    transition: var(--transition-smooth);
+}
+
+.footer-social a:hover {
+    color: var(--accent);
+}
+
+.footer-copyright {
+    border-top: 1px solid hsl(0, 0%, 100%, 0.2);
+    padding-top: 2rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
