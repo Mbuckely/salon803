@@ -4,7 +4,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { Helmet } from "react-helmet";
-import servicesBg from "@/assets/services-bg.jpg";
+const watermarkUrl = "https://scontent-dfw5-2.xx.fbcdn.net/v/t39.30808-6/529681385_122103455774965760_3529433213906757931_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=M_-Hy5uEkKUQ7kNvwHFlFyF&_nc_oc=AdkqpS_34-Hqk9Aw_1W8MJuCl9P2fmFOioXRharFpRrNk1FZuZZfdyvbNxjlZpgdfQCQeH3RHGhvZw4W7r_gQnLo&_nc_zt=23&_nc_ht=scontent-dfw5-2.xx&_nc_gid=lfA6x4pCNXAHosKhH5w9WQ&oh=00_AfeFlccxvERvoynouI67j9NwkZzCM0xVbQKk5yShvpEAFw&oe=68F4B5AF";
 
 const allServices = [
   { title: "Traditional Sew-In", description: "Classic protective style with natural-looking results", price: "$75" },
@@ -44,19 +44,16 @@ const Services = () => {
       </Helmet>
       <Navigation />
       <div 
-        className="relative min-h-screen py-24 px-4"
-        style={{
-          backgroundImage: `url(${servicesBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-        }}
+        className="relative min-h-screen py-24 px-4 overflow-hidden"
       >
-        <div 
-          className="absolute inset-0 bg-background/95"
-          style={{ backdropFilter: 'blur(2px)' }}
-        />
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+          <img
+            src={watermarkUrl}
+            alt="Salon 803 watermark"
+            className="opacity-10 max-w-[70%] max-h-[70%] object-contain"
+            aria-hidden="true"
+          />
+        </div>
         
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-12">

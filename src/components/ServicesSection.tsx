@@ -34,7 +34,8 @@ export const ServicesSection = () => {
           <Button 
             onClick={() => navigate('/services')}
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant transition-smooth"
+            variant="cta"
+            className="shadow-elegant transition-smooth"
           >
             View All Services
           </Button>
