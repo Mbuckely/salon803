@@ -33,25 +33,6 @@ export const FollowUsSection = () => {
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
             </svg>
           </a>
-        </div>
-
-        <div className="flex flex-col items-center gap-3">
-          <h3 className="text-xl font-semibold text-secondary">Snapchat</h3>
-          <p className="text-sm text-muted-foreground">Scan to follow us</p>
-          <a 
-            href="https://www.snapchat.com/add/Salon803Houston" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <img 
-              src={snapchatQR} 
-              alt="Salon 803 Snapchat QR code" 
-              className="w-32 h-auto rounded-lg shadow-card hover:shadow-elegant transition-smooth"
-            />
-          </a>
-          <p className="text-xs text-muted-foreground">Open Snapchat → point camera to scan</p>
-        </div>
       </div>
     </section>
   );
