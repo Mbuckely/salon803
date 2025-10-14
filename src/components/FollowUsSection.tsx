@@ -1,5 +1,5 @@
 import { Instagram } from "lucide-react";
-import snapchatQR from "@/assets/snapchat-qr.png";
+import snapchatQR from "@/assets/snapchat-qr-code.png";
 
 export const FollowUsSection = () => {
   return (
@@ -23,17 +23,6 @@ export const FollowUsSection = () => {
             <Instagram size={40} />
           </a>
           <a 
-            href="https://www.snapchat.com/add/Salon803Houston" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:text-accent transition-smooth hover-scale"
-            aria-label="Follow Salon 803 on Snapchat"
-          >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12.166 3c.796 0 3.495.223 4.769 3.073.426.959.324 2.589.24 3.898l-.002.047c-.011.146-.018.278-.024.415.372.122.726.265 1.064.425a1.946 1.946 0 0 1 .686.552c.185.24.239.54.127.827-.17.435-.84.704-1.314.914l-.013.005c-.504.224-1.061.474-1.135.706-.05.157.01.427.11.803.123.458.294 1.087.294 1.835 0 .722-.263 1.322-.783 1.785-.592.528-1.454.796-2.564.796-1.02 0-1.776-.186-2.446-.428-.535-.194-1.002-.363-1.544-.363-.542 0-1.009.169-1.543.363-.67.242-1.427.428-2.447.428-1.11 0-1.972-.268-2.564-.796-.52-.463-.783-1.063-.783-1.785 0-.748.171-1.377.294-1.835.1-.376.16-.646.11-.803-.074-.232-.631-.482-1.135-.706l-.013-.005c-.474-.21-1.144-.479-1.314-.914a.899.899 0 0 1 .127-.827c.162-.21.396-.399.686-.552.338-.16.692-.303 1.064-.425-.006-.137-.013-.27-.024-.415l-.002-.047c-.084-1.309-.186-2.939.24-3.898C8.671 3.223 11.37 3 12.166 3z"/>
-            </svg>
-          </a>
-          <a 
             href="https://www.facebook.com/p/Salon803Houston-61578972822900/" 
             target="_blank"
             rel="noopener noreferrer"
@@ -46,13 +35,22 @@ export const FollowUsSection = () => {
           </a>
         </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <img 
-            src={snapchatQR} 
-            alt="Salon 803 Snapchat QR code" 
-            className="w-32 h-auto"
-          />
-          <p className="text-sm text-muted-foreground">Scan to follow us on Snapchat!</p>
+        <div className="flex flex-col items-center gap-3">
+          <h3 className="text-xl font-semibold text-secondary">Snapchat</h3>
+          <p className="text-sm text-muted-foreground">Scan to follow us</p>
+          <a 
+            href="https://www.snapchat.com/add/Salon803Houston" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <img 
+              src={snapchatQR} 
+              alt="Salon 803 Snapchat QR code" 
+              className="w-32 h-auto rounded-lg shadow-card hover:shadow-elegant transition-smooth"
+            />
+          </a>
+          <p className="text-xs text-muted-foreground">Open Snapchat → point camera to scan</p>
         </div>
       </div>
     </section>

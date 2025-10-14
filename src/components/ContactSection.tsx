@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "./SectionHeader";
 import { MapPin, Phone, Mail } from "lucide-react";
-import snapchatQR from "@/assets/snapchat-qr.png";
+import snapchatQR from "@/assets/snapchat-qr-code.png";
 
 export const ContactSection = () => {
   const handleCall = () => {
