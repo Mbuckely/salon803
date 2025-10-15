@@ -11,9 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <style>
-    :root{
-      --teal:#6aa7ad; --teal-dark:#4f8e94; --ink:#0f172a;
-    }
+    :root{ --teal:#6aa7ad; --teal-dark:#4f8e94; --ink:#0f172a; }
     html, body { min-height: 100%; }
     body{
       margin:0;
@@ -55,11 +53,11 @@
     .btn:hover{ background:#dc2626; }
     .back{ text-align:center; margin-top:1.25rem; }
 
-    /* small status */
+    /* status */
     .form-status{ margin-top:.75rem; font-size:.95rem; }
     .ok{ color:#065f46; } .err{ color:#b91c1c; }
 
-    /* honeypot anti-spam (hidden) */
+    /* honeypot (hidden) */
     .hp{ position:absolute; left:-9999px; opacity:0; height:0; width:0; overflow:hidden; }
   </style>
 </head>
@@ -67,13 +65,17 @@
   <main class="wrap">
     <div class="header">
       <h1>Apply to Join Our Team</h1>
-      <p>Tell us about yourself our team will review and get back to you.</p>
+      <p>Tell us about yourself—our team will review and get back to you.</p>
     </div>
 
     <div class="card">
-      <!-- Replace the action with your form backend endpoint (see note below) -->
-      <form id="joinTeamForm" method="POST" enctype="multipart/form-data" action="REPLACE_WITH_YOUR_FORM_ENDPOINT">
-        <!-- honeypot (bots fill it; humans don't) -->
+      <form
+        id="joinTeamForm"
+        action="https://script.google.com/macros/s/AKfycbz8PjfDDKMb2RU0ArZ_RWZY0zyyk32Sc16nke6XSnc0m9gmWw37uN4rJE_nJaFDuZKitw/exec"
+        method="POST"
+        enctype="multipart/form-data">
+
+        <!-- honeypot -->
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" />
 
         <div class="grid">
@@ -99,7 +101,7 @@
 
           <div class="form-group full">
             <label for="portfolio">Upload Portfolio (optional)</label>
-            <input id="portfolio" name="portfolio" type="file" accept="image/*,.pdf" />
+            <input id="portfolio" name="portfolio" type="file" accept="image/*,.pdf,.doc,.docx" />
           </div>
 
           <div class="form-group full">
@@ -113,33 +115,32 @@
           </div>
         </div>
 
-        <!-- helpful hidden subject line for email-based services -->
         <input type="hidden" name="_subject" value="New Salon 803 Application" />
 
         <div style="margin-top:1.1rem; text-align:center;">
-  <button class="btn" type="submit">Apply Now</button>
-  <div id="formStatus" class="form-status" aria-live="polite"></div>
-</div>
+          <button class="btn" type="submit">Apply Now</button>
+          <div id="formStatus" class="form-status" aria-live="polite"></div>
+        </div>
+      </form>
 
-    <div class="back">
-      <a class="btn" href="/index.html">← Back to Home</a>
+      <div class="back">
+        <a class="btn" href="/index.html">← Back to Home</a>
+      </div>
     </div>
   </main>
 
   <script>
-    // Optional progressive enhancement for nicer success/fail messages
+    // Show success/fail without leaving page
     const form = document.getElementById('joinTeamForm');
     const status = document.getElementById('formStatus');
 
     form.addEventListener('submit', async (e) => {
-      // If you’re using a hosted form backend (Formspree/Basin), you can keep this or let the browser do a normal POST.
       e.preventDefault();
       status.textContent = 'Sending…';
       status.className = 'form-status';
 
-      const data = new FormData(form);
       try {
-        const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
         if (res.ok) {
           form.reset();
           status.textContent = 'Thanks! Your application has been sent.';
