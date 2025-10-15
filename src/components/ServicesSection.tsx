@@ -1,7 +1,7 @@
 import { ServiceCard } from "./ServiceCard";
 import { SectionHeader } from "./SectionHeader";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const featuredServices = [
   { title: "Traditional Sew-In", description: "Classic protective style with natural-looking results", price: "$75" },
@@ -11,7 +11,7 @@ const featuredServices = [
 ];
 
 export const ServicesSection = () => {
-  const navigate = useNavigate();
+  
 
   return (
     <section id="services" className="py-24 px-4 gradient-section">
@@ -31,16 +31,10 @@ export const ServicesSection = () => {
           ))}
         </div>
         <div className="text-center">
-          <Button 
-            onClick={() => {
-              console.log('Navigating to /services');
-              navigate('/services');
-            }}
-            size="lg"
-            variant="cta"
-            className="shadow-elegant transition-smooth"
-          >
-            View All Services
+          <Button asChild size="lg" variant="cta" className="shadow-elegant transition-smooth">
+            <Link to="/services" aria-label="View all salon services">
+              View All Services
+            </Link>
           </Button>
         </div>
       </div>

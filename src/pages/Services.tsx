@@ -39,7 +39,7 @@ const Services = () => {
         />
         <meta 
           name="keywords" 
-          content="Salon 803 services, Houston hair salon services, sew-in prices Houston, wig install Houston, silk press North Houston, braids Houston" 
+          content="Salon 803 services, Houston hair salon, sew-in prices, wig install, silk press, braids" 
         />
       </Helmet>
       <Navigation />
@@ -58,11 +58,8 @@ const Services = () => {
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-5xl md:text-6xl font-heading font-bold text-secondary mb-4 tracking-wider">
-              Salon 803
+              Salon 803 — Full Service Menu & Pricing
             </h1>
-            <p className="text-lg text-muted-foreground">
-              Explore our complete menu of professional services and pricing.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
