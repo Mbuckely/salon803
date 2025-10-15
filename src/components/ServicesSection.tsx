@@ -32,7 +32,10 @@ export const ServicesSection = () => {
         </div>
         <div className="text-center">
           <Button 
-            onClick={() => navigate('/services')}
+            onClick={() => {
+              console.log('Navigating to /services');
+              navigate('/services');
+            }}
             size="lg"
             variant="cta"
             className="shadow-elegant transition-smooth"
