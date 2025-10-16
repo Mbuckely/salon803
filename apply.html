@@ -27,82 +27,30 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       animation: fadeIn 0.6s ease;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h1 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      color: #1d7d82;
-    }
-    p.intro {
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      color: #444;
-    }
-    form label {
-      display: block;
-      font-weight: 600;
-      margin-top: 1.2rem;
-      margin-bottom: 0.4rem;
-      color: #333;
-    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    h1 { text-align:center; font-size:2rem; margin-bottom:0.5rem; color:#1d7d82; }
+    p.intro { text-align:center; font-size:1rem; margin-bottom:2rem; color:#444; }
+    form label { display:block; font-weight:600; margin-top:1.2rem; margin-bottom:0.4rem; color:#333; }
     form input, form textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1.8px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: border 0.3s ease, box-shadow 0.3s ease;
+      width:100%; padding:0.8rem; border:1.8px solid #ccc; border-radius:8px; font-size:1rem;
+      transition:border .3s ease, box-shadow .3s ease;
     }
     form input:focus, form textarea:focus {
-      outline: none;
-      border-color: #1d7d82;
-      box-shadow: 0 0 0 3px rgba(29, 125, 130, 0.25);
+      outline:none; border-color:#1d7d82; box-shadow:0 0 0 3px rgba(29,125,130,.25);
     }
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-    .optional {
-      font-weight: 400;
-      font-size: 0.9rem;
-      color: #777;
-      margin-left: 4px;
-    }
+    textarea { min-height:120px; resize:vertical; }
+    .optional { font-weight:400; font-size:.9rem; color:#777; margin-left:4px; }
     .btn-submit {
-      display: block;
-      width: 100%;
-      margin-top: 2rem;
-      padding: 0.9rem;
-      background: #1d7d82;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
+      display:block; width:100%; margin-top:2rem; padding:.9rem; background:#1d7d82; color:#fff;
+      font-size:1.1rem; font-weight:600; border:none; border-radius:10px; cursor:pointer;
+      transition:background .3s ease, transform .2s ease;
     }
-    .btn-submit:hover {
-      background: #155d61;
-      transform: translateY(-2px);
-    }
-    .back-link {
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      text-decoration: none;
-      color: #1d7d82;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    .back-link:hover {
-      color: #0f4c4f;
-      text-decoration: underline;
-    }
+    .btn-submit:hover { background:#155d61; transform:translateY(-2px); }
+    .back-link { display:inline-block; margin-bottom:1.5rem; text-decoration:none; color:#1d7d82; font-weight:600; }
+    .back-link:hover { color:#0f4c4f; text-decoration:underline; }
+
+    /* Honeypot anti-spam */
+    .hp { position:absolute; left:-9999px; top:-9999px; height:0; width:0; overflow:hidden; }
   </style>
 </head>
 <body>
@@ -112,7 +60,14 @@
     <h1>Application Form</h1>
     <p class="intro">Fill out the form below to apply to join our team at <strong>Salon 803</strong>.</p>
 
-    <form id="apply-form">
+    <!-- ✅ Pointing directly to your deployed Apps Script -->
+    <form action="https://script.google.com/macros/s/AKfycbykeqJItbgncngWt0wTNV1ozP1ip4spHOH4w9DaY1yIw2CJypjt9_fBZ40lfhV-rlSDOw/exec" method="POST">
+      <!-- Hidden anti-spam field -->
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" />
+
+      <!-- Redirect after submission (optional) -->
+      <input type="hidden" name="redirect" value="thank-you.html" />
+
       <label>Full Name *</label>
       <input type="text" name="fullName" required>
 
@@ -125,7 +80,7 @@
       <label>Weekly Availability *</label>
       <input type="text" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required>
 
-      <label>Social Media Handles (optional)</label>
+      <label>Social Media Handles <span class="optional">(optional)</span></label>
       <input type="text" name="social" placeholder="@yourusername">
 
       <label>Tell us about yourself *</label>
@@ -133,19 +88,6 @@
 
       <button type="submit" class="btn-submit">Submit Application</button>
     </form>
-
-    <p id="success" style="display:none; font-weight:600; color:#1d7d82; margin-top:1rem;">Thank you! We received your application.</p>
   </div>
-
-  <script>
-    const form = document.getElementById('apply-form');
-    const success = document.getElementById('success');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      success.style.display = 'block';
-      form.reset();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
 </body>
 </html>
