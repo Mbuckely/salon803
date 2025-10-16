@@ -61,12 +61,12 @@
     <p class="intro">Fill out the form below to apply to join our team at <strong>Salon 803</strong>.</p>
 
     <!-- ✅ Pointing directly to your deployed Apps Script -->
-    <form action="https://script.google.com/macros/s/AKfycbykeqJItbgncngWt0wTNV1ozP1ip4spHOH4w9DaY1yIw2CJypjt9_fBZ40lfhV-rlSDOw/exec" method="POST">
-      <!-- Hidden anti-spam field -->
+    <form action="https://script.google.com/macros/s/AKfycbykeqJItbgncngWt0wTNV1ozP1ip4spHOH4w9DaY1yIw2CJypjt9_fBZ40lfhV-rlSDOw/exec" method="POST" target="_top">
+      <!-- Honeypot anti-spam -->
       <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" />
 
-      <!-- Redirect after submission (optional) -->
-      <input type="hidden" name="redirect" value="thank-you.html" />
+      <!-- After success, redirect to this absolute URL on your live site -->
+      <input type="hidden" name="redirect" value="https://YOUR-DOMAIN.lovable.app/thank-you.html" />
 
       <label>Full Name *</label>
       <input type="text" name="fullName" required>
