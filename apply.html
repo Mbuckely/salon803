@@ -130,8 +130,7 @@
   </main>
 
   <script>
-    // Show success/fail without leaving page
-    const form = document.getElementById('joinTeamForm');
+  const form = document.getElementById('joinTeamForm');
   const status = document.getElementById('formStatus');
 
   form.addEventListener('submit', async (e) => {
@@ -140,33 +139,25 @@
     status.className = 'form-status';
 
     try {
-      const res = await fetch(form.action, {
+      // no-cors avoids the preflight and response-reading CORS block
+      await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form)  // <-- no custom headers; avoids CORS preflight
+        body: new FormData(form),
+        mode: 'no-cors'
       });
 
-      // Try to read JSON (your Apps Script returns { ok: true })
-      let data = {};
-      try { data = await res.json(); } catch (_) {}
+      form.reset();
+      status.textContent = 'Thanks! Your application has been sent.';
+      status.classList.add('ok');
 
-      if (res.ok && (data.ok === true || data.message === 'Sent')) {
-        form.reset();
-        status.textContent = 'Thanks! Your application has been sent.';
-        status.classList.add('ok');
-
-        // Optional redirect:
-        // window.location.href = '/thanks.html';
-      } else {
-        status.textContent = 'Something went wrong. Please try again or email info@salon803.com.';
-        status.classList.add('err');
-      }
+      // Optional: redirect to a thank-you page instead of inline status
+      // window.location.href = '/thanks.html';
     } catch (err) {
-      // This is where the old "Network error" came from
       status.textContent = 'Network error. Please try again.';
       status.classList.add('err');
       console.error(err);
     }
-    });
-  </script>
+  });
+</script>
 </body>
 </html>
