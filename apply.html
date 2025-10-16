@@ -114,26 +114,27 @@
 
     <!-- IMPORTANT: action must be your Apps Script /exec URL -->
     <form action="https://script.google.com/macros/s/AKfycbzzp-ooZkOhdmKoCNLAxhLz2F4scpQm9Awh9CbwHT51aTVbc8OZCWQzT3f1Vju_I-U6ZA/exec" method="POST">
-      <label for="fullName">Full Name *</label>
-      <input type="text" id="fullName" name="fullName" required />
+  <label>Full Name *</label>
+  <input type="text" name="fullName" required>
 
-      <label for="email">Email *</label>
-      <input type="email" id="email" name="email" required />
+  <label>Email *</label>
+  <input type="email" name="email" required>
 
-      <label for="phone">Phone Number *</label>
-      <input type="tel" id="phone" name="phone" placeholder="000-000-0000" required />
+  <label>Phone Number *</label>
+  <input type="tel" name="phone" placeholder="000-000-0000" required>
 
-      <label for="availability">Weekly Availability *</label>
-      <input type="text" id="availability" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required />
+  <label>Weekly Availability *</label>
+  <input type="text" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required>
 
-      <label for="social">Social Media Handles <span class="optional">(optional)</span></label>
-      <input type="text" id="social" name="social" placeholder="@yourusername" />
+  <label>Social Media Handles (optional)</label>
+  <input type="text" name="social" placeholder="@yourusername">
 
-      <label for="message">Tell us about yourself and why you'd be a great fit! *</label>
-      <textarea id="message" name="message" required></textarea>
+  <label>Tell us about yourself *</label>
+  <textarea name="message" required></textarea>
 
-      <button type="submit" class="btn-submit">Submit Application</button>
-    </form>
+  <button type="submit">Submit Application</button>
+</form>
+
   </div>
 </body>
 </html>
