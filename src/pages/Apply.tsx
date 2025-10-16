@@ -23,20 +23,17 @@ const Apply = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const subject = encodeURIComponent(`Team Application from ${formData.fullName}`);
-    const body = encodeURIComponent(`
-Full Name: ${formData.fullName}
-Phone: ${formData.phone}
-Email: ${formData.email}
-Weekly Availability: ${formData.availability}
-Social Media: ${formData.socialMedia}
-
-Message:
-${formData.message}
-    `);
+    toast.success("Thank you! We received your application.");
     
-    window.location.href = `mailto:info@salon803.com?subject=${subject}&body=${body}`;
-    toast.success("Opening your email client...");
+    // Reset form
+    setFormData({
+      fullName: "",
+      phone: "",
+      email: "",
+      availability: "",
+      socialMedia: "",
+      message: "",
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
