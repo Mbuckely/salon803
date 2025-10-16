@@ -1,0 +1,130 @@
+
+/* ===== Design tokens ===== */
+:root{
+  --background: #ffffff;
+  --foreground: #231f1c;
+
+  --primary: hsl(172, 76%, 40%);
+  --primary-foreground: #fff;
+
+  --secondary: hsl(30, 50%, 20%);
+  --secondary-foreground: #fff;
+
+  --accent: hsl(0, 84%, 55%);
+  --muted: hsl(30, 10%, 96%);
+  --muted-foreground: hsl(30, 10%, 45%);
+
+  --border: hsl(30, 15%, 88%);
+  --shadow-card: 0 4px 20px -4px hsl(172 76% 40% / 0.15);
+  --shadow-elegant: 0 10px 40px -10px hsl(30 50% 20% / 0.2);
+
+  --transition: all .3s ease;
+}
+
+/* ===== Base ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+  color:var(--foreground);
+  background:var(--background);
+  line-height:1.6;
+}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+/* ===== Hero ===== */
+/* Uses your repo layout: /style.css + /images/… */
+.hero-section{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  color:#fff;
+
+  /* gradient overlay + background image */
+  background:
+    linear-gradient(135deg, rgba(31,182,170,.55), rgba(58,44,36,.55)),
+    url('images/salon-logo.png') center/cover no-repeat;
+}
+.hero-overlay{position:absolute;inset:0;pointer-events:none}
+.hero-content{position:relative;max-width:800px;padding:2rem}
+
+.hero-content h1{font-size:clamp(2.5rem,6vw,4rem);margin-bottom:1rem}
+.hero-subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);opacity:.95;margin:0 auto 2rem;max-width:700px}
+
+.social-links{display:flex;gap:1.25rem;justify-content:center;margin-top:1.25rem}
+.social-links a{color:#fff;transition:var(--transition)}
+.social-links a:hover{color:var(--accent);transform:translateY(-2px)}
+
+/* ===== Sections ===== */
+.section{padding:6rem 1rem}
+.container{max-width:64rem;margin:0 auto;text-align:center}
+.container-wide{max-width:90rem;margin:0 auto;padding:0 1rem}
+
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:600;color:var(--secondary);margin-bottom:1rem}
+.section-subtitle{font-size:1.125rem;color:var(--muted-foreground);margin-bottom:2rem}
+.section-text{font-size:1.125rem;color:var(--foreground);margin:0 auto 1.5rem;max-width:55rem}
+.section-cta{margin-top:1.25rem}
+
+/* ===== Buttons ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.75rem 2rem;border:0;border-radius:.6rem;
+  font-weight:600;text-decoration:none;cursor:pointer;transition:var(--transition)
+}
+.btn-cta{background:var(--accent);color:#fff;box-shadow:var(--shadow-elegant)}
+.btn-cta:hover{background:hsl(0 84% 50%);transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-card)}
+.btn-primary:hover{background:hsl(172 76% 35%)}
+.btn-secondary{background:var(--secondary);color:#fff;box-shadow:var(--shadow-card)}
+.btn-secondary:hover{background:hsl(30 50% 25%)}
+
+/* ===== Services ===== */
+.gradient-section{background:linear-gradient(135deg,#1fb6aa 0%,#377e6f 55%,#b98a5c 100%);color:#fff}
+.services-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1.25rem;margin-top:1.25rem
+}
+.service-card{
+  background:#fff;color:#111;text-align:left;padding:1.75rem;border-radius:.75rem;
+  box-shadow:var(--shadow-card);transition:var(--transition)
+}
+.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-elegant)}
+.service-card h3{font-size:1.25rem;color:var(--secondary);margin-bottom:.4rem}
+.service-card p{color:var(--muted-foreground);font-size:.95rem;margin-bottom:.8rem}
+.price{font-size:1.4rem;font-weight:700;color:var(--primary)}
+
+/* ===== Location ===== */
+.location-card{
+  background:#fff;color:#111;padding:2rem;border-radius:.75rem;box-shadow:var(--shadow-elegant);
+  display:flex;gap:1rem;align-items:flex-start;text-align:left;max-width:520px;margin:2rem auto 0
+}
+.icon-primary{color:var(--primary)}
+.location-name{font-weight:700;color:var(--secondary)}
+
+/* ===== Join Team ===== */
+.benefits-section{margin:2rem auto;max-width:600px;text-align:left}
+.benefits-list{list-style:none}
+.benefits-list li{padding:.5rem 0 .5rem 1.5rem;position:relative}
+.benefits-list li::before{content:"✓";position:absolute;left:0;color:var(--primary);font-weight:700}
+
+/* ===== Contact ===== */
+.contact-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;margin:2rem 0
+}
+.contact-card{background:#fff;color:#111;padding:1.5rem;border-radius:.75rem;box-shadow:var(--shadow-card)}
+.contact-card h3{color:var(--secondary);margin:1rem 0 .5rem}
+
+/* ===== Footer ===== */
+.footer{background:var(--secondary);color:#fff;text-align:center;padding:3rem 1rem}
+.footer-title{font-size:1.5rem;font-weight:700;margin-bottom:1rem}
+.footer-social{display:flex;gap:1rem;justify-content:center;margin:0 0 1.25rem}
+.footer-social a{color:#fff;text-decoration:none;transition:var(--transition)}
+.footer-social a:hover{color:var(--accent)}
+
+/* ===== Responsive ===== */
+@media (max-width:768px){
+  .btn{width:100%}
+  .services-grid{grid-template-columns:1fr}
+}
