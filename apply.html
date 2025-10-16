@@ -18,7 +18,6 @@
       min-height: 100vh;
       padding: 4rem 1rem;
     }
-
     .form-container {
       background: #fff;
       max-width: 600px;
@@ -28,26 +27,22 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       animation: fadeIn 0.6s ease;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     h1 {
       text-align: center;
       font-size: 2rem;
       margin-bottom: 0.5rem;
       color: #1d7d82;
     }
-
     p.intro {
       text-align: center;
       font-size: 1rem;
       margin-bottom: 2rem;
       color: #444;
     }
-
     form label {
       display: block;
       font-weight: 600;
@@ -55,9 +50,7 @@
       margin-bottom: 0.4rem;
       color: #333;
     }
-
-    form input,
-    form textarea {
+    form input, form textarea {
       width: 100%;
       padding: 0.8rem;
       border: 1.8px solid #ccc;
@@ -65,26 +58,21 @@
       font-size: 1rem;
       transition: border 0.3s ease, box-shadow 0.3s ease;
     }
-
-    form input:focus,
-    form textarea:focus {
+    form input:focus, form textarea:focus {
       outline: none;
       border-color: #1d7d82;
       box-shadow: 0 0 0 3px rgba(29, 125, 130, 0.25);
     }
-
     textarea {
       min-height: 120px;
       resize: vertical;
     }
-
     .optional {
       font-weight: 400;
       font-size: 0.9rem;
       color: #777;
       margin-left: 4px;
     }
-
     .btn-submit {
       display: block;
       width: 100%;
@@ -99,12 +87,10 @@
       cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease;
     }
-
     .btn-submit:hover {
       background: #155d61;
       transform: translateY(-2px);
     }
-
     .back-link {
       display: inline-block;
       margin-bottom: 1.5rem;
@@ -113,17 +99,9 @@
       font-weight: 600;
       transition: color 0.3s ease;
     }
-
     .back-link:hover {
       color: #0f4c4f;
       text-decoration: underline;
-    }
-
-    /* feedback message */
-    #formMsg {
-      display: none;
-      margin-top: 1rem;
-      font-weight: 600;
     }
   </style>
 </head>
@@ -134,79 +112,28 @@
     <h1>Application Form</h1>
     <p class="intro">Fill out the form below to apply to join our team at <strong>Salon 803</strong>.</p>
 
-    <!-- Updated form: AJAX submit to /api/apply -->
+    <!-- IMPORTANT: action must be your Apps Script /exec URL -->
     <form action="https://script.google.com/macros/s/AKfycbzzp-ooZkOhdmKoCNLAxhLz2F4scpQm9Awh9CbwHT51aTVbc8OZCWQzT3f1Vju_I-U6ZA/exec" method="POST">
-  <label for="fullName">Full Name *</label>
-  <input type="text" id="fullName" name="fullName" required />
+      <label for="fullName">Full Name *</label>
+      <input type="text" id="fullName" name="fullName" required />
 
-  <label for="email">Email *</label>
-  <input type="email" id="email" name="email" required />
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required />
 
-  <label for="phone">Phone Number *</label>
-  <input type="tel" id="phone" name="phone" placeholder="000-000-0000" required />
+      <label for="phone">Phone Number *</label>
+      <input type="tel" id="phone" name="phone" placeholder="000-000-0000" required />
 
-  <label for="availability">Weekly Availability *</label>
-  <input type="text" id="availability" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required />
+      <label for="availability">Weekly Availability *</label>
+      <input type="text" id="availability" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required />
 
-  <label for="social">Social Media Handles <span class="optional">(optional)</span></label>
-  <input type="text" id="social" name="social" placeholder="@yourusername" />
+      <label for="social">Social Media Handles <span class="optional">(optional)</span></label>
+      <input type="text" id="social" name="social" placeholder="@yourusername" />
 
-  <label for="message">Tell us about yourself and why you'd be a great fit! *</label>
-  <textarea id="message" name="message" required></textarea>
+      <label for="message">Tell us about yourself and why you'd be a great fit! *</label>
+      <textarea id="message" name="message" required></textarea>
 
-  <button type="submit" class="btn-submit">Submit Application</button>
-</form>
-
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
   </div>
-
-  <script>
-    const form = document.getElementById('applyForm');
-    const msg  = document.getElementById('formMsg');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.style.display = 'none';
-
-      // Collect only text fields for now (files handled later via S3 if needed)
-      const fd = new FormData(form);
-      const payload = {
-        name: fd.get('name') || '',
-        email: fd.get('email') || '',
-        phone: fd.get('phone') || '',
-        availability: fd.get('availability') || '',
-        socials: fd.get('socials') || '',
-        about: fd.get('about') || ''
-      };
-
-      const btn = form.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Submitting…';
-
-      try {
-        const res = await fetch('/api/apply', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) throw new Error('Network error');
-        const out = await res.json();
-
-        // Success UI
-        msg.textContent = 'Thank you! We received your application.';
-        msg.style.color = '#166534';
-        msg.style.display = 'block';
-        form.reset();
-      } catch (err) {
-        msg.textContent = 'Sorry—something went wrong. Please try again.';
-        msg.style.color = '#991b1b';
-        msg.style.display = 'block';
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Submit Application';
-      }
-    });
-  </script>
 </body>
 </html>
-
