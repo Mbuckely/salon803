@@ -63,7 +63,7 @@ const Apply = () => {
               ← Back to Home
             </Button>
 
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-secondary mb-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-4 text-center">
               Join Our Team
             </h1>
             <p className="text-lg text-center text-foreground mb-8 leading-relaxed">
