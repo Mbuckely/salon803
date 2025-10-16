@@ -118,6 +118,13 @@
       color: #0f4c4f;
       text-decoration: underline;
     }
+
+    /* feedback message */
+    #formMsg {
+      display: none;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -127,7 +134,8 @@
     <h1>Application Form</h1>
     <p class="intro">Fill out the form below to apply to join our team at <strong>Salon 803</strong>.</p>
 
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <!-- Updated form: AJAX submit to /api/apply -->
+    <form id="applyForm" novalidate>
       <label for="name">Full Name *</label>
       <input type="text" id="name" name="name" required />
 
@@ -138,8 +146,10 @@
       <input type="email" id="email" name="email" required />
 
       <label for="availability">Weekly Availability *</label>
-      <input type="text" id="availability" name="availability" placeholder="e.g., Mon-Fri 9am-5pm" required />
+      <input type="text" id="availability" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required />
 
+      <!-- Keeping these fields; the serverless example handles text fields.
+           File uploads can be added later via S3 if you want. -->
       <label for="portfolio">Upload Portfolio <span class="optional">(optional)</span></label>
       <input type="file" id="portfolio" name="portfolio" accept=".pdf,.jpg,.png,.docx,.doc" />
 
@@ -150,7 +160,58 @@
       <textarea id="about" name="about" required></textarea>
 
       <button type="submit" class="btn-submit">Submit Application</button>
+      <p id="formMsg"></p>
     </form>
   </div>
+
+  <script>
+    const form = document.getElementById('applyForm');
+    const msg  = document.getElementById('formMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.style.display = 'none';
+
+      // Collect only text fields for now (files handled later via S3 if needed)
+      const fd = new FormData(form);
+      const payload = {
+        name: fd.get('name') || '',
+        email: fd.get('email') || '',
+        phone: fd.get('phone') || '',
+        availability: fd.get('availability') || '',
+        socials: fd.get('socials') || '',
+        about: fd.get('about') || ''
+      };
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Submitting…';
+
+      try {
+        const res = await fetch('/api/apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('Network error');
+        const out = await res.json();
+
+        // Success UI
+        msg.textContent = 'Thank you! We received your application.';
+        msg.style.color = '#166534';
+        msg.style.display = 'block';
+        form.reset();
+      } catch (err) {
+        msg.textContent = 'Sorry—something went wrong. Please try again.';
+        msg.style.color = '#991b1b';
+        msg.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+      }
+    });
+  </script>
 </body>
 </html>
+
