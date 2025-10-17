@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { supabase } from "@/integrations/supabase/client";
 
 const Apply = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -20,20 +22,51 @@ const Apply = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    toast.success("Thank you! We received your application.");
-    
-    // Reset form
-    setFormData({
-      fullName: "",
-      phone: "",
-      email: "",
-      availability: "",
-      socialMedia: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    try {
+      const form = e.currentTarget;
+      const formDataToSend = new FormData();
+      
+      formDataToSend.append("fullName", formData.fullName);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("phone", formData.phone);
+      formDataToSend.append("availability", formData.availability);
+      formDataToSend.append("social", formData.socialMedia);
+      formDataToSend.append("message", formData.message);
+      
+      const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput?.files?.[0]) {
+        formDataToSend.append("resumeFile", fileInput.files[0]);
+      }
+
+      const { data, error } = await supabase.functions.invoke("apply", {
+        body: formDataToSend,
+      });
+
+      if (error) throw error;
+
+      toast.success("Thank you! We received your application and will be in touch soon.");
+      
+      setFormData({
+        fullName: "",
+        phone: "",
+        email: "",
+        availability: "",
+        socialMedia: "",
+        message: "",
+      });
+      
+      if (fileInput) fileInput.value = "";
+      
+    } catch (error) {
+      console.error("Application submission error:", error);
+      toast.error("There was an error submitting your application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -172,8 +205,24 @@ const Apply = () => {
                 />
               </div>
               
-              <Button type="submit" variant="cta" size="lg" className="w-full">
-                Submit Application
+              <div>
+                <Label htmlFor="resume">Resume (PDF) (optional)</Label>
+                <Input
+                  id="resume"
+                  name="resume"
+                  type="file"
+                  accept="application/pdf"
+                />
+              </div>
+              
+              <Button 
+                type="submit" 
+                variant="cta" 
+                size="lg" 
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
           </div>
