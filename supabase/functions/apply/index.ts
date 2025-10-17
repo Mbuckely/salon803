@@ -88,7 +88,7 @@ serve(async (req) => {
       method: "POST",
       headers: { "Authorization": `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: "Salon 803 <no-reply@yourdomain.com>",
+        from: "Salon 803 <onboarding@resend.dev>",
         to: [ownerEmail],
         subject: `New application – ${fullName || "Unknown"}`,
         html: ownerHtml
@@ -105,7 +105,7 @@ serve(async (req) => {
         method: "POST",
         headers: { "Authorization": `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          from: "Salon 803 <no-reply@yourdomain.com>",
+          from: "Salon 803 <onboarding@resend.dev>",
           to: [email],
           subject: "We received your application",
           html: `<p>Thanks for applying to Salon 803${fullName ? ", " + escape(fullName) : ""}! We've received your application and will be in touch soon.</p>`
