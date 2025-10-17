@@ -12,7 +12,7 @@ const sb = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false
 function cors(res: Response) {
   res.headers.set("Access-Control-Allow-Origin", "*");
   res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.headers.set("Access-Control-Allow-Headers", "content-type");
+  res.headers.set("Access-Control-Allow-Headers", "authorization, x-client-info, apikey, content-type");
   return res;
 }
 function escape(s: string) {
