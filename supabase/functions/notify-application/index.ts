@@ -37,33 +37,37 @@ serve(async (req) => {
         email: OWNER_EMAIL,
       },
       parameters: {
-        fullName,
+        full_name: fullName,
         email,
         phone,
         availability,
         social,
         about,
-        resumeUrl,
-        submittedAt: submittedAt || new Date().toISOString(),
+        resume_url: resumeUrl,
+        submitted_at: submittedAt || new Date().toISOString(),
       },
     });
 
     console.log("✅ Owner notification sent:", ownerResponse.data);
 
-    // ✅ 2. Send Thank-You Email to Applicant (Optional but recommended)
-    const applicantResponse = await notificationapi.send({
-      type: "salon803",
-      templateId: "thank_you_email", // <-- If you have a thank-you template
-      to: {
-        id: email,
-        email,
-      },
-      parameters: {
-        fullName,
-      },
-    });
-
-    console.log("✅ Applicant email sent:", applicantResponse.data);
+    // ✅ 2. Send Thank-You Email to Applicant (optional)
+    try {
+      const applicantResponse = await notificationapi.send({
+        type: "salon803",
+        templateId: "thank_you_email",
+        to: {
+          id: email,
+          email,
+        },
+        parameters: {
+          full_name: fullName,
+          email,
+        },
+      });
+      console.log("✅ Applicant email sent:", applicantResponse.data);
+    } catch (e) {
+      console.warn("⚠️ Skipping applicant email (template may be missing):", e);
+    }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
