@@ -83,41 +83,6 @@ const Apply = () => {
         throw new Error(`Application submission failed: ${insertError.message}`);
       }
 
-      // Get public URL for resume
-      const { data: { publicUrl } } = supabase.storage
-        .from('applications')
-        .getPublicUrl(resumePath);
-
-      // Send notification email
-      console.log('About to call notify-application edge function...');
-      try {
-        const invokeResult = await supabase.functions.invoke('notify-application', {
-          body: {
-            fullName: formData.fullName,
-            email: formData.email,
-            phone: formData.phone,
-            availability: formData.availability,
-            social: formData.socialMedia,
-            about: formData.message,
-            resumeUrl: publicUrl,
-            submittedAt: new Date().toISOString()
-          }
-        });
-        
-        console.log('Edge function invoke result:', invokeResult);
-        
-        if (invokeResult.error) {
-          console.error('Edge function error:', invokeResult.error);
-          toast.error(`Email notification failed: ${invokeResult.error.message}`);
-        } else {
-          console.log('Edge function response data:', invokeResult.data);
-          toast.success("Application submitted! Check your email for confirmation.");
-        }
-      } catch (notifyError: any) {
-        console.error('Email notification exception:', notifyError);
-        toast.error(`Notification error: ${notifyError?.message || 'Unknown error'}`);
-      }
-
       toast.success("Thank you! We received your application and will be in touch soon.");
       
       setFormData({
