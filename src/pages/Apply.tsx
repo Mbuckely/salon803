@@ -33,34 +33,38 @@ const Apply = () => {
       
       let resumePath = null;
 
-      // Upload resume if provided
-      if (file) {
-        const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
-        const maxSize = 20 * 1024 * 1024; // 20MB
-        
-        if (!isPdf) {
-          toast.error("Please upload a PDF file.");
-          setIsSubmitting(false);
-          return;
-        }
-        
-        if (file.size > maxSize) {
-          toast.error("PDF is too large (max 20MB).");
-          setIsSubmitting(false);
-          return;
-        }
-
-        const fileName = `${Date.now()}_${file.name}`;
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('applications')
-          .upload(fileName, file);
-
-        if (uploadError) {
-          throw new Error(`File upload failed: ${uploadError.message}`);
-        }
-
-        resumePath = uploadData.path;
+      // Resume is required
+      if (!file) {
+        toast.error("Please upload your resume (PDF).");
+        setIsSubmitting(false);
+        return;
       }
+
+      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+      const maxSize = 20 * 1024 * 1024; // 20MB
+      
+      if (!isPdf) {
+        toast.error("Please upload a PDF file.");
+        setIsSubmitting(false);
+        return;
+      }
+      
+      if (file.size > maxSize) {
+        toast.error("PDF is too large (max 20MB).");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const fileName = `${Date.now()}_${file.name}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('applications')
+        .upload(fileName, file);
+
+      if (uploadError) {
+        throw new Error(`File upload failed: ${uploadError.message}`);
+      }
+
+      resumePath = uploadData.path;
 
       // Insert application into database
       const { error: insertError } = await supabase
@@ -251,12 +255,13 @@ const Apply = () => {
               </div>
               
               <div>
-                <Label htmlFor="resume">Resume (PDF) (optional)</Label>
+                <Label htmlFor="resume">Resume (PDF) *</Label>
                 <Input
                   id="resume"
                   name="resume"
                   type="file"
                   accept="application/pdf"
+                  required
                 />
               </div>
 
