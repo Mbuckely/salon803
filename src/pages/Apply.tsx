@@ -42,11 +42,22 @@ const Apply = () => {
         formDataToSend.append("resumeFile", fileInput.files[0]);
       }
 
-      const { data, error } = await supabase.functions.invoke("apply", {
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/apply`,
+        {
+          method: "POST",
+          body: formDataToSend,
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+        }
+      );
 
-      if (error) throw error;
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "Submission failed");
+      }
 
       toast.success("Thank you! We received your application and will be in touch soon.");
       
