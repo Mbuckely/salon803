@@ -109,10 +109,10 @@ const Apply = () => {
         <meta name="description" content="Apply to join the talented team at Salon 803. We're looking for passionate stylists and braiders." />
       </Helmet>
       
-      <main className="min-h-screen">
+      <div className="min-h-screen flex flex-col">
         <Navigation />
         
-        <div className="pt-24 pb-16 px-4 min-h-screen gradient-section">
+        <main className="flex-1 pt-24 pb-16 px-4 gradient-section">
           <div className="max-w-3xl mx-auto">
             <Button 
               onClick={() => navigate("/")} 
@@ -255,10 +255,10 @@ const Apply = () => {
               </Button>
             </form>
           </div>
-        </div>
+        </main>
         
         <Footer />
-      </main>
+      </div>
     </>
   );
 };
