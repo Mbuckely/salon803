@@ -23,6 +23,7 @@ const Apply = () => {
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("Form submitted!");
     e.preventDefault();
     setIsSubmitting(true);
 
