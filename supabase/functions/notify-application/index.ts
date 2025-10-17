@@ -38,23 +38,27 @@ serve(async (req) => {
 
     console.log('Sending notification for application from:', email);
     
-    // Send notification to owner using template
+    // Send notification to owner using template with parameters
     const ownerResponse = await notificationapi.send({
-      notificationId: 'salon803_owner_notification',
-      user: {
+      type: 'salon803',
+      to: {
         id: OWNER_EMAIL,
         email: OWNER_EMAIL
       },
-      mergeTags: {
-        fullName: fullName,
+      parameters: {
+        full_name: fullName,
         email: email,
         phone: phone || 'Not provided',
         availability: availability || 'Not provided',
-        social: social || 'Not provided',
+        '#if social': social ? 'true' : '',
+        social: social || '',
+        '/if': '',
         about: about || 'Not provided',
-        resumeUrl: resumeUrl || 'No resume uploaded',
-        submittedAt: submittedAt || new Date().toISOString()
-      }
+        '#if resume_url': resumeUrl ? 'true' : '',
+        resume_url: resumeUrl || '',
+        submitted_at: submittedAt || new Date().toISOString()
+      },
+      templateId: 'salon803'
     });
 
     console.log('Owner notification sent successfully:', ownerResponse.data);
