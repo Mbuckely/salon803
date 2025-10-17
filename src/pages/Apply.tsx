@@ -226,6 +226,9 @@ const Apply = () => {
                   accept="application/pdf"
                 />
               </div>
+
+              {/* Honeypot field - hidden from users */}
+              <input type="text" name="website" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
               
               <Button 
                 type="submit" 
