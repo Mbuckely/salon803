@@ -36,8 +36,8 @@ serve(async (req) => {
       <p><strong>Submitted At:</strong> ${submittedAt || new Date().toISOString()}</p>
     `;
     
-    // Send notification using SDK
-    const response = await notificationapi.send({
+    // Send notification to owner
+    const ownerResponse = await notificationapi.send({
       type: 'salon803',
       to: {
         id: 'marquisebuckley@gmail.com',
@@ -49,8 +49,31 @@ serve(async (req) => {
       }
     });
 
-    console.log('Notification sent successfully:', response.data);
-    return new Response(JSON.stringify({ success: true, data: response.data }), {
+    console.log('Owner notification sent successfully:', ownerResponse.data);
+
+    // Send thank you email to applicant
+    const thankYouHtml = `
+      <h2>Thank you for your application — Salon 803 Team</h2>
+      <p>Dear ${fullName},</p>
+      <p>Thank you for applying to join our team at Salon 803. We have received your application and will review it shortly.</p>
+      <p>We appreciate your interest in working with us and will be in touch soon.</p>
+      <p>Best regards,<br>The Salon 803 Team</p>
+    `;
+
+    const applicantResponse = await notificationapi.send({
+      type: 'salon803',
+      to: {
+        id: email,
+        email: email
+      },
+      email: {
+        subject: 'Thank you for your application — Salon 803 Team',
+        html: thankYouHtml
+      }
+    });
+
+    console.log('Applicant thank you email sent successfully:', applicantResponse.data);
+    return new Response(JSON.stringify({ success: true, owner: ownerResponse.data, applicant: applicantResponse.data }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
