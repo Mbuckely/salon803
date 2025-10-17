@@ -16,9 +16,24 @@ serve(async (req) => {
     const { fullName, email, phone, availability, social, about, resumeUrl, submittedAt } = await req.json();
 
     // Initialize NotificationAPI SDK
+    const CLIENT_ID = Deno.env.get('NOTIFICATIONAPI_CLIENT_ID');
+    const CLIENT_SECRET = Deno.env.get('NOTIFICATIONAPI_CLIENT_SECRET');
+    const OWNER_EMAIL = Deno.env.get('OWNER_EMAIL') || 'marquisebuckley@gmail.com';
+
+    if (!CLIENT_ID || !CLIENT_SECRET) {
+      console.error('Missing NotificationAPI credentials');
+      return new Response(JSON.stringify({ success: false, error: 'Missing NotificationAPI credentials' }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders
+        }
+      });
+    }
+
     notificationapi.init(
-      'tperykf9p25g8q8h6nxxhacz4h',
-      '63iotd0a5e7ml2e1a4rb0n4ccts5o23cepx1xm455veoo94m02y8743fm8'
+      CLIENT_ID,
+      CLIENT_SECRET
     );
 
     console.log('Sending notification for application from:', email);
@@ -40,8 +55,8 @@ serve(async (req) => {
     const ownerResponse = await notificationapi.send({
       type: 'salon803',
       to: {
-        id: 'marquisebuckley@gmail.com',
-        email: 'marquisebuckley@gmail.com'
+        id: OWNER_EMAIL,
+        email: OWNER_EMAIL
       },
       email: {
         subject: `New Job Application from ${fullName}`,
