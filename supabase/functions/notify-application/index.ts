@@ -1,4 +1,5 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import notificationapi from 'npm:notificationapi-node-server-sdk';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,46 +13,41 @@ serve(async (req) => {
   }
 
   try {
-    const { fullName, email, phone } = await req.json();
+    const { fullName, email, phone, availability, social, about, resumeUrl, submittedAt } = await req.json();
 
-    const clientId = Deno.env.get('NOTIFICATIONAPI_CLIENT_ID') as string;
-    const clientSecret = Deno.env.get('NOTIFICATIONAPI_CLIENT_SECRET') as string;
+    // Initialize NotificationAPI SDK
+    notificationapi.init(
+      'tperykf9p25g8q8h6nxxhacz4h',
+      '63iotd0a5e7ml2e1a4rb0n4ccts5o23cepx1xm455veoo94m02y8743fm8'
+    );
 
     console.log('Sending notification for application from:', email);
     
-    // Call NotificationAPI REST API
-    const response = await fetch('https://api.notificationapi.com/v1/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`
+    // Send notification using SDK
+    const response = await notificationapi.send({
+      type: 'salon803',
+      to: {
+        id: 'marquisebuckley@gmail.com',
+        email: 'marquisebuckley@gmail.com'
       },
-      body: JSON.stringify({
-        type: 'salon803',
-        to: {
-          id: 'marquisebuckley@gmail.com',
-          email: 'marquisebuckley@gmail.com'
-        },
-        email: {
-          subject: `New Application from ${fullName}`,
-          html: `
-            <h2>New Job Application Received</h2>
-            <p><strong>Name:</strong> ${fullName}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-            <p>View full application details in your backend.</p>
-          `
-        }
-      })
+      parameters: {
+        "#if social": social || "",
+        "/if": "/if",
+        "#if resume_url": resumeUrl || "",
+        "full_name": fullName,
+        "email": email,
+        "phone": phone || "",
+        "availability": availability || "",
+        "social": social || "",
+        "about": about || "",
+        "resume_url": resumeUrl || "",
+        "submitted_at": submittedAt || new Date().toISOString()
+      },
+      templateId: 'english'
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`NotificationAPI error: ${response.status} - ${errorText}`);
-    }
-
-    console.log('Notification sent successfully');
-    return new Response(JSON.stringify({ success: true }), {
+    console.log('Notification sent successfully:', response.data);
+    return new Response(JSON.stringify({ success: true, data: response.data }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
