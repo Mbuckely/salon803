@@ -23,55 +23,60 @@ const Apply = () => {
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("Form submitted!");
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
       const form = e.currentTarget;
-      const formDataToSend = new FormData();
-      
-      formDataToSend.append("fullName", formData.fullName);
-      formDataToSend.append("email", formData.email);
-      formDataToSend.append("phone", formData.phone);
-      formDataToSend.append("availability", formData.availability);
-      formDataToSend.append("social", formData.socialMedia);
-      formDataToSend.append("message", formData.message);
-      
       const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
       const file = fileInput?.files?.[0];
+      
+      let resumePath = null;
+
+      // Upload resume if provided
       if (file) {
         const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
         const maxSize = 20 * 1024 * 1024; // 20MB
+        
         if (!isPdf) {
           toast.error("Please upload a PDF file.");
           setIsSubmitting(false);
           return;
         }
+        
         if (file.size > maxSize) {
           toast.error("PDF is too large (max 20MB).");
           setIsSubmitting(false);
           return;
         }
-        formDataToSend.append("resumeFile", file);
+
+        const fileName = `${Date.now()}_${file.name}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('applications')
+          .upload(fileName, file);
+
+        if (uploadError) {
+          throw new Error(`File upload failed: ${uploadError.message}`);
+        }
+
+        resumePath = uploadData.path;
       }
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/apply`,
-        {
-          method: "POST",
-          body: formDataToSend,
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-        }
-      );
+      // Insert application into database
+      const { error: insertError } = await supabase
+        .from('applications')
+        .insert({
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          availability: formData.availability,
+          social: formData.socialMedia,
+          message: formData.message,
+          resume_path: resumePath,
+        });
 
-      const result = await response.json();
-
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error || "Submission failed");
+      if (insertError) {
+        throw new Error(`Application submission failed: ${insertError.message}`);
       }
 
       toast.success("Thank you! We received your application and will be in touch soon.");
