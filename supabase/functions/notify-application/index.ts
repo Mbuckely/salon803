@@ -38,52 +38,36 @@ serve(async (req) => {
 
     console.log('Sending notification for application from:', email);
     
-    // Build email HTML
-    const emailHtml = `
-      <h2>New Job Application - Salon 803</h2>
-      <p><strong>Full Name:</strong> ${fullName}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-      <p><strong>Availability:</strong> ${availability || 'Not provided'}</p>
-      <p><strong>Social Media:</strong> ${social || 'Not provided'}</p>
-      <p><strong>About:</strong> ${about || 'Not provided'}</p>
-      ${resumeUrl ? `<p><strong>Resume:</strong> <a href="${resumeUrl}">View Resume</a></p>` : ''}
-      <p><strong>Submitted At:</strong> ${submittedAt || new Date().toISOString()}</p>
-    `;
-    
-    // Send notification to owner
+    // Send notification to owner using template
     const ownerResponse = await notificationapi.send({
-      type: 'salon803',
-      to: {
+      notificationId: 'salon803_owner_notification',
+      user: {
         id: OWNER_EMAIL,
         email: OWNER_EMAIL
       },
-      email: {
-        subject: `New Job Application from ${fullName}`,
-        html: emailHtml
+      mergeTags: {
+        fullName: fullName,
+        email: email,
+        phone: phone || 'Not provided',
+        availability: availability || 'Not provided',
+        social: social || 'Not provided',
+        about: about || 'Not provided',
+        resumeUrl: resumeUrl || 'No resume uploaded',
+        submittedAt: submittedAt || new Date().toISOString()
       }
     });
 
     console.log('Owner notification sent successfully:', ownerResponse.data);
 
-    // Send thank you email to applicant
-    const thankYouHtml = `
-      <h2>Thank you for your application — Salon 803 Team</h2>
-      <p>Dear ${fullName},</p>
-      <p>Thank you for applying to join our team at Salon 803. We have received your application and will review it shortly.</p>
-      <p>We appreciate your interest in working with us and will be in touch soon.</p>
-      <p>Best regards,<br>The Salon 803 Team</p>
-    `;
-
+    // Send thank you email to applicant using template
     const applicantResponse = await notificationapi.send({
-      type: 'salon803',
-      to: {
+      notificationId: 'salon803_applicant_thankyou',
+      user: {
         id: email,
         email: email
       },
-      email: {
-        subject: 'Thank you for your application — Salon 803 Team',
-        html: thankYouHtml
+      mergeTags: {
+        fullName: fullName
       }
     });
 
