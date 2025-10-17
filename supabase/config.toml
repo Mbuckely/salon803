@@ -2,3 +2,6 @@ project_id = "mdeugjnzdhwsijylcvts"
 
 [functions.view-resume]
 verify_jwt = false
+
+[functions.notify-application]
+verify_jwt = false

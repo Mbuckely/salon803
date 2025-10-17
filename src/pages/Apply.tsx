@@ -83,6 +83,29 @@ const Apply = () => {
         throw new Error(`Application submission failed: ${insertError.message}`);
       }
 
+      // Get public URL for resume
+      const { data: { publicUrl } } = supabase.storage
+        .from('applications')
+        .getPublicUrl(resumePath);
+
+      // Send notification
+      const { error: notifyError } = await supabase.functions.invoke('notify-application', {
+        body: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          availability: formData.availability,
+          social: formData.socialMedia,
+          about: formData.message,
+          resumeUrl: publicUrl,
+          submittedAt: new Date().toISOString()
+        }
+      });
+
+      if (notifyError) {
+        console.error('Notification error:', notifyError);
+      }
+
       toast.success("Thank you! We received your application and will be in touch soon.");
       
       setFormData({
