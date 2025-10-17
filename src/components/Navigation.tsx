@@ -47,7 +47,7 @@ export const Navigation = () => {
               <Button
                 key={link.label}
                 variant="ghost"
-                onClick={link.action}
+                onClick={() => { link.action(); setIsOpen(false); }}
                 className="text-foreground hover:text-primary"
               >
                 {link.label}
@@ -73,7 +73,7 @@ export const Navigation = () => {
                 <Button
                   key={link.label}
                   variant="ghost"
-                  onClick={link.action}
+                  onClick={() => { link.action(); setIsOpen(false); }}
                   className="w-full justify-start text-foreground hover:text-primary"
                 >
                   {link.label}
