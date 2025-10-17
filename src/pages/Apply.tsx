@@ -79,6 +79,20 @@ const Apply = () => {
         throw new Error(`Application submission failed: ${insertError.message}`);
       }
 
+      // Send notification email
+      try {
+        await supabase.functions.invoke('notify-application', {
+          body: {
+            fullName: formData.fullName,
+            email: formData.email,
+            phone: formData.phone
+          }
+        });
+      } catch (notifyError) {
+        console.error('Email notification failed:', notifyError);
+        // Continue anyway - the application was saved successfully
+      }
+
       toast.success("Thank you! We received your application and will be in touch soon.");
       
       setFormData({
