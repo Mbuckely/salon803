@@ -39,8 +39,21 @@ const Apply = () => {
       formDataToSend.append("message", formData.message);
       
       const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
-      if (fileInput?.files?.[0]) {
-        formDataToSend.append("resumeFile", fileInput.files[0]);
+      const file = fileInput?.files?.[0];
+      if (file) {
+        const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+        const maxSize = 20 * 1024 * 1024; // 20MB
+        if (!isPdf) {
+          toast.error("Please upload a PDF file.");
+          setIsSubmitting(false);
+          return;
+        }
+        if (file.size > maxSize) {
+          toast.error("PDF is too large (max 20MB).");
+          setIsSubmitting(false);
+          return;
+        }
+        formDataToSend.append("resumeFile", file);
       }
 
       const response = await fetch(
@@ -50,6 +63,7 @@ const Apply = () => {
           body: formDataToSend,
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
         }
       );
