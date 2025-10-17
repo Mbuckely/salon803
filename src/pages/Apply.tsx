@@ -90,7 +90,8 @@ const Apply = () => {
 
       // Send notification email
       try {
-        await supabase.functions.invoke('notify-application', {
+        console.log('Calling notify-application edge function...');
+        const { data, error } = await supabase.functions.invoke('notify-application', {
           body: {
             fullName: formData.fullName,
             email: formData.email,
@@ -102,9 +103,16 @@ const Apply = () => {
             submittedAt: new Date().toISOString()
           }
         });
+        
+        if (error) {
+          console.error('Edge function error:', error);
+          throw error;
+        }
+        
+        console.log('Edge function response:', data);
       } catch (notifyError) {
         console.error('Email notification failed:', notifyError);
-        // Continue anyway - the application was saved successfully
+        toast.error('Application saved, but email notification failed. We will still review your application.');
       }
 
       toast.success("Thank you! We received your application and will be in touch soon.");
