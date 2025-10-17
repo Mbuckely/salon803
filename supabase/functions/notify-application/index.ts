@@ -23,6 +23,19 @@ serve(async (req) => {
 
     console.log('Sending notification for application from:', email);
     
+    // Build email HTML
+    const emailHtml = `
+      <h2>New Job Application - Salon 803</h2>
+      <p><strong>Full Name:</strong> ${fullName}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+      <p><strong>Availability:</strong> ${availability || 'Not provided'}</p>
+      <p><strong>Social Media:</strong> ${social || 'Not provided'}</p>
+      <p><strong>About:</strong> ${about || 'Not provided'}</p>
+      ${resumeUrl ? `<p><strong>Resume:</strong> <a href="${resumeUrl}">View Resume</a></p>` : ''}
+      <p><strong>Submitted At:</strong> ${submittedAt || new Date().toISOString()}</p>
+    `;
+    
     // Send notification using SDK
     const response = await notificationapi.send({
       type: 'salon803',
@@ -30,20 +43,10 @@ serve(async (req) => {
         id: 'marquisebuckley@gmail.com',
         email: 'marquisebuckley@gmail.com'
       },
-      parameters: {
-        "#if social": social || "",
-        "/if": "/if",
-        "#if resume_url": resumeUrl || "",
-        "full_name": fullName,
-        "email": email,
-        "phone": phone || "",
-        "availability": availability || "",
-        "social": social || "",
-        "about": about || "",
-        "resume_url": resumeUrl || "",
-        "submitted_at": submittedAt || new Date().toISOString()
-      },
-      templateId: 'english'
+      email: {
+        subject: `New Job Application from ${fullName}`,
+        html: emailHtml
+      }
     });
 
     console.log('Notification sent successfully:', response.data);
