@@ -241,13 +241,14 @@ const Apply = () => {
               </div>
               
               <div>
-                <Label htmlFor="resume">Resume (PDF) *</Label>
+                <Label htmlFor="resume">Resume (PDF) - Required *</Label>
                 <Input
                   id="resume"
                   name="resume"
                   type="file"
                   accept="application/pdf"
                   required
+                  aria-required="true"
                 />
               </div>
 
