@@ -30,7 +30,7 @@ const Apply = () => {
       const form = e.currentTarget;
       const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
       const file = fileInput?.files?.[0];
-      
+
       let resumePath = null;
 
       // Resume is required
@@ -42,13 +42,13 @@ const Apply = () => {
 
       const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
       const maxSize = 20 * 1024 * 1024; // 20MB
-      
+
       if (!isPdf) {
         toast.error("Please upload a PDF file.");
         setIsSubmitting(false);
         return;
       }
-      
+
       if (file.size > maxSize) {
         toast.error("PDF is too large (max 20MB).");
         setIsSubmitting(false);
@@ -57,7 +57,7 @@ const Apply = () => {
 
       const fileName = `${Date.now()}_${file.name}`;
       const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('applications')
+        .from("applications")
         .upload(fileName, file);
 
       if (uploadError) {
@@ -67,17 +67,15 @@ const Apply = () => {
       resumePath = uploadData.path;
 
       // Insert application into database
-      const { error: insertError } = await supabase
-        .from('applications')
-        .insert({
-          full_name: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          availability: formData.availability,
-          social: formData.socialMedia,
-          message: formData.message,
-          resume_path: resumePath,
-        });
+      const { error: insertError } = await supabase.from("applications").insert({
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        availability: formData.availability,
+        social: formData.socialMedia,
+        message: formData.message,
+        resume_path: resumePath,
+      });
 
       if (insertError) {
         throw new Error(`Application submission failed: ${insertError.message}`);
@@ -106,7 +104,7 @@ const Apply = () => {
         availability: formData.availability ?? "Not provided",
         social: formData.socialMedia ?? "Not provided",
         resumeUrl,
-        message: formData.message ?? ""
+        message: formData.message ?? "",
       };
 
       // 3) Call the Edge Function
@@ -135,11 +133,11 @@ const Apply = () => {
       if (notifyOk) {
         toast.success("Thank you! We received your application and will be in touch soon.");
       } else {
-        toast.success("Application saved, but notification email failed. We'll still review your application.");
+        toast.error("Application saved, but notification email failed. We'll still review your application.");
       }
 
       // --- end email trigger block ---
-      
+
       setFormData({
         fullName: "",
         phone: "",
@@ -148,9 +146,8 @@ const Apply = () => {
         socialMedia: "",
         message: "",
       });
-      
+
       if (fileInput) fileInput.value = "";
-      
     } catch (error) {
       console.error("Application submission error:", error);
       toast.error("There was an error submitting your application. Please try again.");
@@ -170,30 +167,27 @@ const Apply = () => {
     <>
       <Helmet>
         <title>Apply - Join Our Team at Salon 803</title>
-        <meta name="description" content="Apply to join the talented team at Salon 803. We're looking for passionate stylists and braiders." />
+        <meta
+          name="description"
+          content="Apply to join the talented team at Salon 803. We're looking for passionate stylists and braiders."
+        />
       </Helmet>
-      
+
       <div className="min-h-screen flex flex-col">
         <Navigation />
-        
+
         <main className="flex-1 pt-24 pb-16 px-4 gradient-section">
           <div className="max-w-3xl mx-auto">
-            <Button 
-              onClick={() => navigate("/")} 
-              variant="ghost" 
-              className="mb-8"
-            >
+            <Button onClick={() => navigate("/")} variant="ghost" className="mb-8">
               ← Back to Home
             </Button>
 
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-4 text-center">
-              Join Our Team
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-4 text-center">Join Our Team</h1>
             <p className="text-lg text-center text-foreground mb-8 leading-relaxed">
-              Are you a passionate stylist or braider looking for a fresh start in a supportive and professional salon? 
+              Are you a passionate stylist or braider looking for a fresh start in a supportive and professional salon?
               Salon 803 is growing — and we're looking for talented individuals to join our team.
             </p>
-            
+
             <div className="bg-primary-light p-8 rounded-lg mb-8">
               <h3 className="text-2xl font-bold text-secondary mb-4">What We Offer:</h3>
               <ul className="space-y-2 text-foreground">
@@ -219,7 +213,7 @@ const Apply = () => {
                 </li>
               </ul>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="bg-card p-8 rounded-lg shadow-elegant space-y-6">
               <div>
                 <Label htmlFor="fullName">Full Name *</Label>
@@ -232,7 +226,7 @@ const Apply = () => {
                   placeholder="Your full name"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="phone">Phone Number *</Label>
                 <Input
@@ -245,7 +239,7 @@ const Apply = () => {
                   placeholder="(123) 456-7890"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="email">Email *</Label>
                 <Input
@@ -258,7 +252,7 @@ const Apply = () => {
                   placeholder="your.email@example.com"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="availability">Weekly Availability *</Label>
                 <Input
@@ -270,7 +264,7 @@ const Apply = () => {
                   placeholder="e.g., Mon-Fri 9am-5pm"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="socialMedia">Social Media Handles (optional)</Label>
                 <Input
@@ -281,7 +275,7 @@ const Apply = () => {
                   placeholder="@yourhandle"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="message">Tell us about yourself and why you'd be a great fit! *</Label>
                 <Textarea
@@ -294,35 +288,22 @@ const Apply = () => {
                   rows={5}
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="resume">Resume (PDF) - Required *</Label>
-                <Input
-                  id="resume"
-                  name="resume"
-                  type="file"
-                  accept="application/pdf"
-                  required
-                  aria-required="true"
-                />
+                <Input id="resume" name="resume" type="file" accept="application/pdf" required aria-required="true" />
               </div>
 
               {/* Honeypot field - hidden from users */}
-              <input type="text" name="website" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
-              
-              <Button 
-                type="submit" 
-                variant="cta" 
-                size="lg" 
-                className="w-full"
-                disabled={isSubmitting}
-              >
+              <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
+              <Button type="submit" variant="cta" size="lg" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
           </div>
         </main>
-        
+
         <Footer />
       </div>
     </>
