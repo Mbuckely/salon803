@@ -1,3 +1,4 @@
+// src/pages/Apply.tsx
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -30,7 +31,14 @@ const Apply = () => {
     try {
       const form = e.currentTarget;
       const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement | null;
-      const file = fileInput?.files?.[0];
+      const file = fileInput?.files?.[0] ?? null;
+
+      // Honeypot: hidden field named "website"
+      const honeypot = (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value ?? "";
+      if (honeypot) {
+        setIsSubmitting(false);
+        return;
+      }
 
       // Basic validation
       if (!formData.fullName || !formData.phone || !formData.email || !formData.availability || !formData.message) {
@@ -39,7 +47,7 @@ const Apply = () => {
         return;
       }
 
-      // Resume required (your current UX)
+      // Resume required
       if (!file) {
         toast.error("Please upload your resume (PDF).");
         setIsSubmitting(false);
@@ -60,10 +68,10 @@ const Apply = () => {
       }
 
       // 1) Upload resume to bucket "applications"
-      const fileName = `${Date.now()}_${file.name}`;
+      const fileName = `${Date.now()}_${file.name.replace(/\s+/g, "_")}`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("applications")
-        .upload(fileName, file);
+        .upload(fileName, file, { contentType: "application/pdf", upsert: false });
       if (uploadError) throw new Error(`File upload failed: ${uploadError.message}`);
 
       const resumePath = uploadData.path;
@@ -80,9 +88,7 @@ const Apply = () => {
       });
       if (insertError) throw new Error(`Application submission failed: ${insertError.message}`);
 
-      // --- begin email trigger block (MUST MATCH EDGE FUNCTION PARAMS) ---
-
-      // 3) Create a 7-day signed URL for the uploaded resume (if any)
+      // 3) Create a 7-day signed URL (optional but nice for the email)
       let resumeUrl = "";
       try {
         const { data: signed, error: signErr } = await supabase.storage
@@ -105,12 +111,18 @@ const Apply = () => {
       };
 
       // 5) POST to the Edge Function
-      const notifyUrl = import.meta.env.VITE_NOTIFY_CONTACT_URL!;
+      const notifyUrl = import.meta.env.VITE_NOTIFY_CONTACT_URL as string | undefined;
       if (!notifyUrl) {
         console.error("VITE_NOTIFY_CONTACT_URL missing");
+        toast.error("Email notification service is not configured.");
+        setIsSubmitting(false);
+        return;
       }
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
-      // Include anon key for non-public functions (harmless if public)
+
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      };
       if (import.meta.env.VITE_SUPABASE_ANON_KEY) {
         headers["Authorization"] = `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`;
       }
@@ -121,22 +133,20 @@ const Apply = () => {
           method: "POST",
           headers,
           body: JSON.stringify(payload),
+          cache: "no-store",
         });
-        const json = await res.json().catch(() => ({} as any));
+        const json = await res.json().catch(() => ({}) as any);
         notifyOk = !!json?.ok;
         if (!notifyOk) console.error("Notify function returned error:", json);
       } catch (err) {
         console.error("Notify function fetch failed:", err);
       }
 
-      // 6) UX feedback
       if (notifyOk) {
         toast.success("Thank you! We received your application and will be in touch soon.");
       } else {
         toast.error("Application saved, but notification email failed. We'll still review your application.");
       }
-
-      // --- end email trigger block ---
 
       // Reset form
       setFormData({
