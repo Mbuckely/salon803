@@ -24,16 +24,22 @@ const Apply = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     try {
       const form = e.currentTarget;
-      const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
+      const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement | null;
       const file = fileInput?.files?.[0];
 
-      let resumePath: string | null = null;
+      // Basic validation
+      if (!formData.fullName || !formData.phone || !formData.email || !formData.availability || !formData.message) {
+        toast.error("Please complete all required fields.");
+        setIsSubmitting(false);
+        return;
+      }
 
-      // Resume is required
+      // Resume required (your current UX)
       if (!file) {
         toast.error("Please upload your resume (PDF).");
         setIsSubmitting(false);
@@ -42,31 +48,27 @@ const Apply = () => {
 
       const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
       const maxSize = 20 * 1024 * 1024; // 20MB
-
       if (!isPdf) {
         toast.error("Please upload a PDF file.");
         setIsSubmitting(false);
         return;
       }
-
       if (file.size > maxSize) {
         toast.error("PDF is too large (max 20MB).");
         setIsSubmitting(false);
         return;
       }
 
+      // 1) Upload resume to bucket "applications"
       const fileName = `${Date.now()}_${file.name}`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("applications")
         .upload(fileName, file);
+      if (uploadError) throw new Error(`File upload failed: ${uploadError.message}`);
 
-      if (uploadError) {
-        throw new Error(`File upload failed: ${uploadError.message}`);
-      }
+      const resumePath = uploadData.path;
 
-      resumePath = uploadData.path;
-
-      // Insert application into database
+      // 2) Insert DB row into "applications"
       const { error: insertError } = await supabase.from("applications").insert({
         full_name: formData.fullName,
         email: formData.email,
@@ -76,13 +78,67 @@ const Apply = () => {
         message: formData.message,
         resume_path: resumePath,
       });
+      if (insertError) throw new Error(`Application submission failed: ${insertError.message}`);
 
-      if (insertError) {
-        throw new Error(`Application submission failed: ${insertError.message}`);
+      // --- begin email trigger block (MUST MATCH EDGE FUNCTION PARAMS) ---
+
+      // 3) Create a 7-day signed URL for the uploaded resume (if any)
+      let resumeUrl = "";
+      try {
+        const { data: signed, error: signErr } = await supabase.storage
+          .from("applications")
+          .createSignedUrl(resumePath, 60 * 60 * 24 * 7);
+        if (!signErr && signed?.signedUrl) resumeUrl = signed.signedUrl;
+      } catch (e) {
+        console.warn("Could not create signed URL for resume:", e);
       }
 
-      toast.success("Thank you! We received your application and will be in touch soon.");
+      // 4) Build payload (names must match the Edge Function)
+      const payload = {
+        fullName: formData.fullName ?? "Unknown",
+        email: formData.email ?? "",
+        phone: formData.phone ?? "",
+        availability: formData.availability ?? "Not provided",
+        social: formData.socialMedia ?? "Not provided",
+        resumeUrl,
+        message: formData.message ?? "",
+      };
 
+      // 5) POST to the Edge Function
+      const notifyUrl = import.meta.env.VITE_NOTIFY_CONTACT_URL!;
+      if (!notifyUrl) {
+        console.error("VITE_NOTIFY_CONTACT_URL missing");
+      }
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      // Include anon key for non-public functions (harmless if public)
+      if (import.meta.env.VITE_SUPABASE_ANON_KEY) {
+        headers["Authorization"] = `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`;
+      }
+
+      let notifyOk = false;
+      try {
+        const res = await fetch(notifyUrl, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json().catch(() => ({} as any));
+        notifyOk = !!json?.ok;
+        if (!notifyOk) console.error("Notify function returned error:", json);
+      } catch (err) {
+        console.error("Notify function fetch failed:", err);
+      }
+
+      // 6) UX feedback
+      if (notifyOk) {
+        toast.success("Thank you! We received your application and will be in touch soon.");
+      } else {
+        toast.error("Application saved, but notification email failed. We'll still review your application.");
+      }
+
+      // --- end email trigger block ---
+
+      // Reset form
       setFormData({
         fullName: "",
         phone: "",
@@ -91,7 +147,6 @@ const Apply = () => {
         socialMedia: "",
         message: "",
       });
-
       if (fileInput) fileInput.value = "";
     } catch (error) {
       console.error("Application submission error:", error);
