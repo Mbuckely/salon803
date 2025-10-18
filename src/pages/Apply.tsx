@@ -31,7 +31,7 @@ const Apply = () => {
       const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
       const file = fileInput?.files?.[0];
 
-      let resumePath = null;
+      let resumePath: string | null = null;
 
       // Resume is required
       if (!file) {
@@ -115,6 +115,10 @@ const Apply = () => {
         headers["Authorization"] = `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`;
       }
 
+      // Debug visibility
+      console.log("Calling notify function:", notifyUrl);
+      console.log("Notify payload:", payload);
+
       let notifyOk = false;
       try {
         const res = await fetch(notifyUrl, {
@@ -123,6 +127,9 @@ const Apply = () => {
           body: JSON.stringify(payload),
         });
         const json = await res.json().catch(() => ({}));
+        console.log("Notify status:", res.status);
+        console.log("Notify response JSON:", json);
+
         notifyOk = !!json?.ok;
         if (!notifyOk) console.error("Notify function returned error:", json);
       } catch (err) {
