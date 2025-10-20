@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the security controls implemented in the Salon 803 job application system and provides guidance for security maintenance and key rotation.
+This document outlines the security controls implemented in the Salon 803 job application system using Google Apps Script, Google Sheets, Google Drive, and hCaptcha.
 
 ## Security Controls
 
@@ -56,14 +56,14 @@ This document outlines the security controls implemented in the Salon 803 job ap
 
 **IP Address Handling:**
 - IP addresses are never stored in plain text
-- SHA-256 hash with server-side pepper (from `PEPPER` environment variable)
+- SHA-256 hash with server-side pepper (stored in Apps Script properties)
 - Only hash is stored in Google Sheets for abuse detection
 
 **PII Protection:**
 - No PII logged to console or error logs
 - Errors return generic messages to users
-- Detailed errors logged server-side with correlation IDs
-- Append-only writes to Google Sheets (no update/delete from application)
+- Detailed errors logged in Apps Script execution logs
+- Append-only writes to Google Sheets (no programmatic updates/deletes)
 
 **Consent:**
 - Explicit consent checkbox required
@@ -73,84 +73,90 @@ This document outlines the security controls implemented in the Salon 803 job ap
 ### 5. API Security
 
 **Authentication:**
-- Google Service Account with minimal scopes:
-  - `https://www.googleapis.com/auth/spreadsheets` (write to specific sheet)
-  - `https://www.googleapis.com/auth/drive.file` (write to specific folder)
-- JWT-based authentication with RS256 signing
-- Access tokens expire after 1 hour
+- Google Apps Script runs with your Google account permissions
+- No service account JSON files to manage
+- Leverages Google's built-in OAuth2 authentication
+- Script accessible via unique deployment URL
+- Deployment URL changes with each re-deployment for additional security
 
 **CORS:**
-- Allowlist only production origin (configured via `APP_BASE_URL`)
+- Allowlist only production origin (configured in Apps Script `ALLOWED_ORIGIN` property)
 - Explicit allowed methods: POST, OPTIONS
-- Credentials not allowed in cross-origin requests
+- No credentials required in cross-origin requests
 
 **CSRF Protection:**
-- If cookies/sessions are used in future, CSRF tokens should be implemented
-- Currently stateless, so CSRF risk is minimal
+- Apps Script deployment URLs are unique and unpredictable
+- No cookies or sessions used (stateless)
+- CSRF risk is minimal
 
-### 6. Security Headers
+### 6. Google Apps Script Security
 
-All responses include comprehensive security headers:
+**Script Properties Protection:**
+- All sensitive data stored in Script Properties (not in code)
+- Properties encrypted by Google at rest
+- Only script owner can view/edit properties
+- Properties survive script re-deployment
 
-```
-Content-Security-Policy: default-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'
-Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-Referrer-Policy: strict-origin-when-cross-origin
-Permissions-Policy: geolocation=(), microphone=(), camera=()
-```
+**Execution Controls:**
+- Script runs with owner's Google account permissions
+- Access to specific Sheet and Drive folder only
+- No elevated privileges beyond Google account scope
 
-**CSP Directive Explanations:**
-- `default-src 'self'`: Only load resources from same origin
-- `form-action 'self'`: Forms can only submit to same origin
-- `frame-ancestors 'none'`: Prevent clickjacking
-- `base-uri 'self'`: Prevent base tag injection
+**Deployment Security:**
+- Unique deployment ID prevents URL guessing
+- "Execute as: Me" ensures consistent permissions
+- Can be re-deployed to rotate deployment URL
 
 ### 7. HTTPS & Transport Security
 
 **Production Requirements:**
-- HTTPS must be enforced (redirect HTTP to HTTPS)
-- HSTS header ensures browsers always use HTTPS
-- Certificate must be valid and up-to-date
+- HTTPS must be enforced for the frontend website
+- Apps Script endpoints use HTTPS by default
+- All data transmitted over encrypted connections
 
 **Development:**
-- In local development, use localhost over HTTP
-- Never commit production credentials to repository
+- Local development can use HTTP on localhost
+- Never use production credentials in development
 
-## Environment Variables
+## Apps Script Configuration
 
-All sensitive configuration must be provided via environment variables. **Never commit these to version control.**
+All sensitive configuration is stored in Google Apps Script Properties. **Never commit these to version control.**
 
-Required variables (see `.env.example`):
+Required properties (configured in Apps Script Project Settings):
 
 ```
-GOOGLE_SA_JSON={"type":"service_account",...}
-GOOGLE_SHEETS_ID=your-sheet-id
-GOOGLE_DRIVE_FOLDER_ID=your-folder-id
-CAPTCHA_SITE_KEY=your-hcaptcha-site-key
+SHEET_ID=your-google-sheet-id
+DRIVE_FOLDER_ID=your-drive-folder-id
 CAPTCHA_SECRET=your-hcaptcha-secret
-INTERNAL_NOTIFY_EMAIL=notifications@yourdomain.com
-APP_BASE_URL=https://yourdomain.com
 PEPPER=long-random-string-for-ip-hashing
-RESEND_API_KEY=re_your_resend_key (optional)
+ALLOWED_ORIGIN=https://yourdomain.com
+NOTIFY_EMAIL=notifications@yourdomain.com (optional)
+```
+
+Frontend environment variables (in .env file):
+
+```
+VITE_APPS_SCRIPT_URL=https://script.google.com/macros/s/.../exec
+VITE_HCAPTCHA_SITE_KEY=your-hcaptcha-site-key
 ```
 
 ## Key Rotation Procedures
 
-### Google Service Account Key Rotation
+### Apps Script Deployment Rotation
 
-**Frequency:** Every 90 days or immediately if compromised
+**Frequency:** Every 180 days or if deployment URL is exposed
 
 **Steps:**
-1. Go to Google Cloud Console → IAM & Admin → Service Accounts
-2. Select your service account
-3. Click "Keys" tab → "Add Key" → "Create new key" → JSON
-4. Download the new key file
-5. Update `GOOGLE_SA_JSON` environment variable with new key content
-6. Verify application works with new key
-7. Delete old key from Google Cloud Console
-8. Update key rotation date in your security log
+1. Go to your Apps Script project
+2. Click "Deploy" → "Manage deployments"
+3. Click "..." next to current deployment → "Archive"
+4. Click "New deployment"
+5. Configure same settings as before
+6. Copy new deployment URL
+7. Update `VITE_APPS_SCRIPT_URL` in frontend .env file
+8. Deploy updated frontend
+9. Test form submission
+10. Document rotation in security log
 
 ### CAPTCHA Secret Rotation
 
@@ -165,26 +171,25 @@ RESEND_API_KEY=re_your_resend_key (optional)
 
 ### PEPPER Rotation
 
-**Frequency:** Annually or if server compromise suspected
+**Frequency:** Annually or if Apps Script properties are compromised
 
 **Important:** Rotating the pepper will invalidate all existing IP hashes. Historical rate limiting data will be lost.
 
 **Steps:**
-1. Generate new cryptographically random string (min 32 characters)
-2. Update `PEPPER` environment variable
-3. Clear rate limiting store (or wait for natural expiration)
-4. Document rotation in security log
+1. Generate new cryptographically random string (min 32 characters): `openssl rand -base64 32`
+2. Go to Apps Script → Project Settings → Script Properties
+3. Update `PEPPER` property with new value
+4. Click "Save"
+5. Rate limiting will reset automatically
+6. Document rotation in security log
 
-### Resend API Key Rotation (if used)
+### Email Notification Setup (Optional)
 
-**Frequency:** Every 180 days
-
-**Steps:**
-1. Go to Resend dashboard → API Keys
-2. Create new API key
-3. Update `RESEND_API_KEY` environment variable
-4. Test email sending
-5. Delete old API key
+**If using Gmail via Apps Script:**
+- No API keys needed - uses your Google account
+- Configure `NOTIFY_EMAIL` in Script Properties
+- Email sent via `MailApp.sendEmail()`
+- Subject to Google's email sending quotas
 
 ## Data Deletion Requests
 
@@ -203,50 +208,56 @@ Users may request deletion of their application data under privacy regulations (
 
 ## Logging & Monitoring
 
-### What is Logged (Server-Side Only)
+### What is Logged (Apps Script Execution Logs)
 
 - Submission timestamps
-- IP hash (not raw IP)
-- User agent string
-- Error types (generic, no PII)
-- CAPTCHA verification failures
+- Success/failure status
+- Error messages (generic, no PII)
+- CAPTCHA verification results
 - Rate limit violations
 
-### What is NOT Logged
+**To view logs:**
+1. Go to Apps Script project
+2. Click "Executions" in sidebar
+3. View detailed logs for each submission
 
-- Raw IP addresses
-- Email addresses
-- Phone numbers
-- Resume content
-- Any personally identifiable information
-- Stack traces in production responses
+### What is NOT Logged in Execution Logs
+
+- Raw IP addresses (only hashes stored in Sheet)
+- Full PII (only in Sheet, not logs)
+- Stack traces containing sensitive data
 
 ### Monitoring Recommendations
 
-- Set up alerts for rate limit violations (potential abuse)
-- Monitor failed CAPTCHA verifications
-- Track Google API errors
-- Monitor file upload sizes and types
-- Alert on repeated errors from same IP hash
+- Review Apps Script executions weekly
+- Monitor Google Sheet for patterns
+- Set up email alerts for failed executions (Apps Script → Triggers)
+- Track rate limit violations
+- Monitor Google Drive storage usage
 
 ## Incident Response
 
-### If Service Account Key is Compromised
+### If Apps Script Properties are Compromised
 
-1. **Immediately** delete the compromised key in Google Cloud Console
-2. Generate new service account key
-3. Update environment variable
-4. Review Google Sheets and Drive for unauthorized access
-5. Notify affected users if data was accessed
-6. Document incident and lessons learned
+1. **Immediately** rotate all Script Properties:
+   - New PEPPER value
+   - New CAPTCHA_SECRET
+   - New ALLOWED_ORIGIN (if needed)
+2. Archive old deployment and create new one
+3. Review Apps Script execution logs for unauthorized access
+4. Check Google Sheet and Drive for unauthorized changes
+5. Update frontend with new deployment URL
+6. Notify affected users if data was accessed
+7. Document incident
 
-### If CAPTCHA Secret is Exposed
+### If Apps Script Deployment URL is Exposed
 
-1. Immediately generate new secret in hCaptcha dashboard
-2. Update environment variable
-3. Revoke old secret
-4. Monitor for spam submissions during transition
-5. Consider temporarily increasing rate limits if legitimate users affected
+1. Archive the exposed deployment immediately
+2. Create new deployment with different settings
+3. Update frontend with new URL
+4. Monitor old deployment's execution logs
+5. Consider whether to revoke all properties and start fresh
+6. Document incident
 
 ### If Data Breach Occurs
 
@@ -271,25 +282,28 @@ Users may request deletion of their application data under privacy regulations (
 
 ### Current Limitations
 
-1. **Rate Limiting:** In-memory store won't scale across multiple instances
-   - **Recommendation:** Implement Redis for distributed rate limiting
+1. **Rate Limiting:** Uses Apps Script User Properties (per-user storage)
+   - **Limitation:** Limited to 9KB total storage
+   - **Recommendation:** Implement automated cleanup trigger (see SETUP.md)
 
-2. **CSRF:** Not implemented as system is currently stateless
-   - **Recommendation:** Add if cookies/sessions are introduced
+2. **File Size:** Maximum 50MB per Apps Script execution
+   - **Current Limit:** 5MB enforced in code
+   - **Recommendation:** Consider Google Cloud Storage for larger files
 
-3. **Manual Data Deletion:** No automated self-service deletion
-   - **Recommendation:** Build admin panel for GDPR compliance
+3. **Email Sending:** Uses Google's MailApp (quota limits apply)
+   - **Limitation:** ~100 emails/day for personal accounts
+   - **Recommendation:** Use Google Workspace for higher quotas
 
-4. **Email Sending:** Optional, relies on third-party service
-   - **Fallback:** Administrators can manually check Google Sheets
+4. **Manual Data Deletion:** No automated self-service deletion
+   - **Recommendation:** Build admin dashboard for GDPR compliance
 
 ### Planned Improvements
 
-- Implement automated backup of Google Sheets data
-- Add email verification step before submission
-- Build admin dashboard for application management
-- Implement automated security scanning in CI/CD
-- Add comprehensive integration tests for security controls
+- Set up automated rate limit cleanup trigger
+- Implement Google Cloud Storage for large files
+- Build admin dashboard with Google Apps Script HTML Service
+- Add automated Sheet backups
+- Implement email verification before submission
 
 ## Contact
 

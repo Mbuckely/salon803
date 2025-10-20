@@ -121,17 +121,17 @@ const Apply = () => {
         reader.readAsDataURL(resumeFile);
       });
 
-      const apiUrl = import.meta.env.VITE_SUPABASE_URL 
-        ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-application`
-        : '/api/submit-application';
+      // Get Apps Script webhook URL from environment
+      const webhookUrl = import.meta.env.VITE_APPS_SCRIPT_URL;
       
-      const response = await fetch(apiUrl, {
+      if (!webhookUrl) {
+        throw new Error('Application webhook not configured. Please contact support.');
+      }
+
+      const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY && {
-            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          }),
         },
         body: JSON.stringify({
           ...formData,
