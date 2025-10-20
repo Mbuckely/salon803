@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { supabase } from "@/integrations/supabase/client";
 
 const Apply = () => {
   const navigate = useNavigate();
@@ -26,71 +25,44 @@ const Apply = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
+    
+    const form = e.currentTarget;
+    const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement | null;
+    const file = fileInput?.files?.[0] ?? null;
+
+    // Honeypot: hidden field named "website"
+    const honeypot = (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value ?? "";
+    if (honeypot) return;
+
+    // Basic validation
+    if (!formData.fullName || !formData.phone || !formData.email || !formData.availability || !formData.message) {
+      toast.error("Please complete all required fields.");
+      return;
+    }
+
+    // Resume required
+    if (!file) {
+      toast.error("Please upload your resume (PDF).");
+      return;
+    }
+
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    const maxSize = 20 * 1024 * 1024; // 20MB
+    if (!isPdf) {
+      toast.error("Please upload a PDF file.");
+      return;
+    }
+    if (file.size > maxSize) {
+      toast.error("PDF is too large (max 20MB).");
+      return;
+    }
+
     setIsSubmitting(true);
 
-    try {
-      const form = e.currentTarget;
-      const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement | null;
-      const file = fileInput?.files?.[0] ?? null;
-
-      // Honeypot: hidden field named "website"
-      const honeypot = (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value ?? "";
-      if (honeypot) {
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Basic validation
-      if (!formData.fullName || !formData.phone || !formData.email || !formData.availability || !formData.message) {
-        toast.error("Please complete all required fields.");
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Resume required
-      if (!file) {
-        toast.error("Please upload your resume (PDF).");
-        setIsSubmitting(false);
-        return;
-      }
-
-      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
-      const maxSize = 20 * 1024 * 1024; // 20MB
-      if (!isPdf) {
-        toast.error("Please upload a PDF file.");
-        setIsSubmitting(false);
-        return;
-      }
-      if (file.size > maxSize) {
-        toast.error("PDF is too large (max 20MB).");
-        setIsSubmitting(false);
-        return;
-      }
-
-      // 1) Upload resume to bucket "applications"
-      const fileName = `${Date.now()}_${file.name.replace(/\s+/g, "_")}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("applications")
-        .upload(fileName, file, { contentType: "application/pdf", upsert: false });
-      if (uploadError) throw new Error(`File upload failed: ${uploadError.message}`);
-
-      const resumePath = uploadData.path;
-
-      // 2) Insert DB row into "applications"
-      const { error: insertError } = await supabase.from("applications").insert({
-        full_name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        availability: formData.availability,
-        social: formData.socialMedia,
-        message: formData.message,
-        resume_path: resumePath,
-      });
-      if (insertError) throw new Error(`Application submission failed: ${insertError.message}`);
-
-      // Success - application saved
-      toast.success("Thank you! We received your application and will be in touch soon.");
-
+    // Simulate form capture (no backend wired)
+    setTimeout(() => {
+      toast.success("Form captured (no backend wired).");
+      
       // Reset form
       setFormData({
         fullName: "",
@@ -101,12 +73,8 @@ const Apply = () => {
         message: "",
       });
       if (fileInput) fileInput.value = "";
-    } catch (error) {
-      console.error("Application submission error:", error);
-      toast.error("There was an error submitting your application. Please try again.");
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 500);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
