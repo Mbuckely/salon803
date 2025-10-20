@@ -88,65 +88,8 @@ const Apply = () => {
       });
       if (insertError) throw new Error(`Application submission failed: ${insertError.message}`);
 
-      // 3) Create a 7-day signed URL (optional but nice for the email)
-      let resumeUrl = "";
-      try {
-        const { data: signed, error: signErr } = await supabase.storage
-          .from("applications")
-          .createSignedUrl(resumePath, 60 * 60 * 24 * 7);
-        if (!signErr && signed?.signedUrl) resumeUrl = signed.signedUrl;
-      } catch (e) {
-        console.warn("Could not create signed URL for resume:", e);
-      }
-
-      // 4) Build payload (names must match the Edge Function)
-      const payload = {
-        fullName: formData.fullName ?? "Unknown",
-        email: formData.email ?? "",
-        phone: formData.phone ?? "",
-        availability: formData.availability ?? "Not provided",
-        social: formData.socialMedia ?? "Not provided",
-        resumeUrl,
-        message: formData.message ?? "",
-      };
-
-      // 5) POST to the Edge Function
-      const notifyUrl = import.meta.env.VITE_NOTIFY_CONTACT_URL as string | undefined;
-      if (!notifyUrl) {
-        console.error("VITE_NOTIFY_CONTACT_URL missing");
-        toast.error("Email notification service is not configured.");
-        setIsSubmitting(false);
-        return;
-      }
-
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      };
-      if (import.meta.env.VITE_SUPABASE_ANON_KEY) {
-        headers["Authorization"] = `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`;
-      }
-
-      let notifyOk = false;
-      try {
-        const res = await fetch(notifyUrl, {
-          method: "POST",
-          headers,
-          body: JSON.stringify(payload),
-          cache: "no-store",
-        });
-        const json = await res.json().catch(() => ({}) as any);
-        notifyOk = !!json?.ok;
-        if (!notifyOk) console.error("Notify function returned error:", json);
-      } catch (err) {
-        console.error("Notify function fetch failed:", err);
-      }
-
-      if (notifyOk) {
-        toast.success("Thank you! We received your application and will be in touch soon.");
-      } else {
-        toast.error("Application saved, but notification email failed. We'll still review your application.");
-      }
+      // Success - application saved
+      toast.success("Thank you! We received your application and will be in touch soon.");
 
       // Reset form
       setFormData({
