@@ -10,14 +10,5 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },
-  build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, "index.html"),
-        services: path.resolve(__dirname, "services.html"),
-        thankyou: path.resolve(__dirname, "thank-you.html"),
-        apply: path.resolve(__dirname, "apply-legacy.html"),
-      },
-    },
-  },
+  build: {},
 }));
