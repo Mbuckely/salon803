@@ -264,7 +264,6 @@
       const q=encodeURIComponent('4444 Cypress Creek Parkway, STE 30, Houston, TX 77068');
       window.open(`https://www.google.com/maps/search/?api=1&query=${q}`,'_blank','noopener');
     }
-    // Set current year once
     document.addEventListener('DOMContentLoaded',()=> {
       const y=document.getElementById('currentYear');
       if(y) y.textContent=new Date().getFullYear();
