@@ -1,10 +1,9 @@
-- import { BrowserRouter, Routes, Route } from 'react-router-dom'
-+ import { HashRouter as BrowserRouter, Routes, Route } from 'react-router-dom'
+// src/App.tsx
+import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/Index";
+import Services from "./pages/Services";
 
-import Index from './pages/Index'
-import Services from './pages/Services'
-
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -12,7 +11,5 @@ function App() {
         <Route path="/services" element={<Services />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
-
-export default App
