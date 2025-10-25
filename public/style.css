@@ -94,3 +94,117 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* ================================
+   FULL-PAGE GRADIENT for #/services
+   ================================ */
+
+/* Make the whole services view use the brand gradient */
+#view-services {
+  min-height: 100vh;
+  background: var(--teal-brown-gradient);
+  position: relative;
+  color: #fff; /* default text on this view */
+}
+
+/* Optional soft vignette for depth (like hero) */
+#view-services::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.06) 55%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  pointer-events: none;
+}
+
+/* Header sits on the gradient (transparent background) */
+#view-services header.section {
+  background: transparent;
+  color: #fff;
+  padding: 60px 20px 30px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Title + subtitle on gradient */
+#view-services .section-title {
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 2.8vw, 2.4rem);
+  margin: 10px 0 0;
+}
+#view-services .section-subtitle {
+  color: #e6f6f8;
+  opacity: 0.95;
+  margin-top: 8px;
+  font-size: 0.98rem;
+}
+
+/* Content area on gradient */
+#view-services main.section {
+  max-width: 1100px;
+  margin: 0 auto 60px; /* no negative margin; we’re already on gradient */
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1; /* above the vignette overlay */
+}
+
+/* Grid + cards (unchanged, but scoped to services view) */
+#view-services .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+#view-services .service-card {
+  background: #fff;
+  color: #111;
+  text-align: left;
+  padding: 1.75rem;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+#view-services .service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elegant);
+}
+#view-services .service-card h3 {
+  color: var(--secondary);
+  margin-bottom: 0.4rem;
+}
+#view-services .service-card p {
+  color: var(--muted-foreground);
+}
+
+/* Back button on gradient */
+#view-services .btn.btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+}
+#view-services .btn.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Footer text readable on gradient if you keep it inside view-services */
+#view-services .footer {
+  background: transparent;
+  color: #fff;
+}
+#view-services .footer-copy {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #view-services .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
