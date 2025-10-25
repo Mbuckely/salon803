@@ -1,17 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Index from './pages/Index'
-import Services from './pages/Services'
+import { Routes, Route } from "react-router-dom";
+import Index from "./pages/Index";
+import Services from "./pages/Services";
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/services.html" element={<Services />} />
-      </Routes>
-    </BrowserRouter>
-  )
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/services" element={<Services />} />
+      {/* Catch-all: send unknown paths to home (optional) */}
+      <Route path="*" element={<Index />} />
+    </Routes>
+  );
 }
-
-export default App
