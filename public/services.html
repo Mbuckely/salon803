@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="/public/style.css" />
-
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Salon 803 | Full Service Menu & Pricing</title>
+
+  <!-- External site stylesheet: public/style.css -> /style.css -->
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Page-specific styles (keep if you like the look) -->
   <style>
     body {
       margin: 0;
@@ -13,95 +16,28 @@
       background-color: #f4f7f6;
       color: #222;
     }
-
     header {
       text-align: center;
       background: linear-gradient(135deg, #068f97, #1c7486);
       color: white;
       padding: 60px 20px 80px;
     }
-
-    header h1 {
-      font-family: 'Georgia', serif;
-      font-size: 2.8rem;
-      margin: 10px 0 0;
-    }
-
-    header p {
-      font-size: 1rem;
-      margin-top: 10px;
-      color: #e6f6f8;
-    }
-
-    header .subtitle {
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: -40px auto 60px;
-      padding: 0 20px;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
+    header h1 { font-family: 'Georgia', serif; font-size: 2.8rem; margin: 10px 0 0; }
+    header p { font-size: 1rem; margin-top: 10px; color: #e6f6f8; }
+    header .subtitle { text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; opacity: 0.9; }
+    main { max-width: 1100px; margin: -40px auto 60px; padding: 0 20px; }
+    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
     .service {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      padding: 25px 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background-color: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      padding: 25px 20px; transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
-    .service:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-
-    .service h3 {
-      margin-top: 0;
-      color: #025861;
-      font-size: 1.1rem;
-    }
-
-    .service p {
-      font-size: 0.95rem;
-      color: #444;
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-
-    .service span {
-      font-weight: bold;
-      color: #111;
-    }
-
-    .note {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 40px;
-    }
-
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 30px;
-      text-decoration: none;
-      color: #025861;
-      font-weight: 500;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
+    .service:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    .service h3 { margin-top: 0; color: #025861; font-size: 1.1rem; }
+    .service p { font-size: 0.95rem; color: #444; margin-bottom: 10px; line-height: 1.4; }
+    .service span { font-weight: bold; color: #111; }
+    .note { text-align: center; font-size: 0.9rem; color: #555; margin-top: 40px; }
+    .back-link { display: block; text-align: center; margin-top: 30px; text-decoration: none; color: #025861; font-weight: 500; }
+    .back-link:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
