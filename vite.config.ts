@@ -1,18 +1,23 @@
+// vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
+  server: { host: "::", port: 8080 },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    alias: { "@": path.resolve(__dirname, "./src") },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        services: path.resolve(__dirname, "services.html"),
+        thankyou: path.resolve(__dirname, "thank-you.html"),
+        apply: path.resolve(__dirname, "apply-legacy.html"),
+      },
     },
   },
 }));
