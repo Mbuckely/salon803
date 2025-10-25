@@ -12,18 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Page-specific layout, reusing global tokens from style.css */
     *{box-sizing:border-box;margin:0;padding:0}
-
     body{
       font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
-      /* same hero/services gradient as homepage */
       background: var(--teal-brown-gradient);
       color: var(--foreground);
       min-height:100vh;
     }
-
-    /* Header with brand above title */
     header{
       text-align:center;
       padding:3.5rem 1rem 2rem;
@@ -51,8 +46,6 @@
       color:#eef2ff;
       opacity:.95;
     }
-
-    /* Grid of services */
     .services-container{
       max-width:1100px;
       margin:2rem auto;
@@ -76,7 +69,7 @@
     .service-card h2{
       font-size:1.25rem;
       margin-bottom:.5rem;
-      color:var(--primary);     /* brand teal */
+      color:var(--primary);
       font-weight:700;
     }
     .service-card p{
@@ -86,10 +79,9 @@
     }
     .price{
       font-weight:700;
-      color:var(--secondary);   /* brand chocolate */
+      color:var(--secondary);
       font-size:1.1rem;
     }
-
     .note{
       text-align:center;
       font-size:.9rem;
@@ -97,13 +89,12 @@
       color:#eef2ff;
       opacity:.9;
     }
-
     .btn-back{
       display:block;
       width:max-content;
       margin:2.25rem auto 3rem;
       padding:.9rem 1.8rem;
-      background:var(--accent);         /* accent = brighter teal from tokens */
+      background:var(--accent);
       color:#fff;
       border:none;
       border-radius:10px;
@@ -114,7 +105,7 @@
       box-shadow:var(--shadow-elegant);
     }
     .btn-back:hover{
-      background:hsl(188 38% 43%);      /* accent hover, matches homepage */
+      background:hsl(188 38% 43%);
       transform:translateY(-2px);
     }
   </style>
@@ -216,7 +207,6 @@
 
   <p class="note">* Prices may vary based on hair length, texture, or additional services.</p>
 
-  <a href="index.html" class="btn-back">← Back to Home</a>
+  <a href="./index.html" class="btn-back">← Back to Home</a>
 </body>
 </html>
-
