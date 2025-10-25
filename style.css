@@ -165,3 +165,129 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   .services-grid{grid-template-columns:1fr}
 }
 
+/* ================================
+   SERVICES PAGE (#/services)
+   Full-page gradient + cards
+   ================================ */
+
+#view-services{
+  min-height: 100vh;
+  background: var(--teal-brown-gradient);
+  position: relative;
+  color: #fff;                 /* default text on services view */
+  animation: sv-fade .25s ease-in;
+}
+
+/* optional soft vignette over gradient for depth */
+#view-services::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.06) 55%,
+    rgba(0,0,0,.28) 100%
+  );
+  pointer-events:none;
+}
+
+/* Header sits directly on the gradient */
+#view-services header.section{
+  background: transparent;
+  color:#fff;
+  text-align:center;
+  padding:60px 20px 30px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Titles on gradient */
+#view-services .section-title{
+  color:#fff;
+  font-family:'Playfair Display',serif;
+  font-size: clamp(2rem, 2.8vw, 2.4rem);
+  margin: 10px 0 0;
+}
+#view-services .section-subtitle{
+  color:#e6f6f8;
+  opacity:.95;
+  margin-top:8px;
+  font-size:.98rem;
+}
+
+/* Content area on gradient */
+#view-services main.section{
+  max-width: 1100px;
+  margin: 0 auto 60px;     /* no negative margin here */
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1;              /* above vignette */
+}
+
+/* Grid + cards (match your home cards) */
+#view-services .services-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:1.25rem;
+  margin-top:1.25rem;
+}
+#view-services .service-card{
+  background:#fff;
+  color:#111;
+  text-align:left;
+  padding:1.75rem;
+  border-radius:.75rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+#view-services .service-card:hover{
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elegant);
+}
+#view-services .service-card h3{
+  font-size:1.15rem;
+  color: var(--secondary);
+  margin-bottom:.4rem;
+}
+#view-services .service-card p{
+  color: var(--muted-foreground);
+  font-size:.96rem;
+  margin-bottom:.65rem;
+  line-height:1.45;
+}
+#view-services .service-card .price{
+  font-size:1.2rem;
+  font-weight:700;
+  color: var(--primary);
+}
+
+/* Back button on gradient */
+#view-services .btn.btn-secondary{
+  background: transparent;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.92);
+  padding:.55rem .9rem;
+  border-radius:10px;
+}
+#view-services .btn.btn-secondary:hover{
+  background: rgba(255,255,255,.1);
+}
+
+/* Note text tone on gradient (if used) */
+#view-services .note{
+  color:#e6f6f8;
+  text-align:center;
+  margin-top:2rem;
+  opacity:.95;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px){
+  #view-services .services-grid{ grid-template-columns: 1fr; }
+}
+
+/* tiny fade-in */
+@keyframes sv-fade{
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
