@@ -19,9 +19,16 @@
     (function() {
       // Robust redirect for non-hash URLs (handles trailing slashes and .html)
       if (location.hash && location.hash.length > 1) return;
-      var path = location.pathname
-        .replace(/\/index\.html$/i, "/")
-        .replace(/\.html?$/i, "");
+      var rawPath = location.pathname;
+      // Special-case: map /services (and children) to static /services.html
+      var basePath = rawPath.replace(/\/index\.html$/i, "/");
+      var isServices = /\/services(\/.*)?$/i.test(basePath);
+      if (isServices) {
+        var target = "/services.html" + (location.search || "") + (location.hash || "");
+        location.replace(target);
+        return;
+      }
+      var path = basePath.replace(/\.html?$/i, "");
       // Remove trailing slash(es) but keep root
       path = path.replace(/\/+$/, "") || "/";
       if (path === "/") return;
