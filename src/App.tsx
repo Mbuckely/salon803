@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+- import { BrowserRouter, Routes, Route } from 'react-router-dom'
++ import { HashRouter as BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import Index from './pages/Index'
 import Services from './pages/Services'
 
