@@ -1,34 +1,24 @@
-/* ===== Design tokens (Salon 8O3) ===== */
+
+/* ===== Design tokens ===== */
 :root{
   --background: #ffffff;
-  --foreground: #2b2423;            /* deep warm espresso for body text */
+  --foreground: #231f1c;
 
-  /* Brand teal (from the “O”) */
-  --primary: hsl(188 34% 45%);      /* ~#5f8f95 – richer for contrast */
-  --primary-foreground: #ffffff;
+  --primary: hsl(172, 76%, 40%);
+  --primary-foreground: #fff;
 
-  /* Brand chocolate (from SALON text & bubbles) */
-  --secondary: hsl(0 15% 34%);      /* ≈ #624949 */
-  --secondary-foreground: #ffffff;
+  --secondary: hsl(30, 50%, 20%);
+  --secondary-foreground: #fff;
 
-  /* Accent = brighter teal highlight (replaces the red) */
-  --accent: hsl(188 38% 48%);
-  --muted: hsl(24 12% 96%);
-  --muted-foreground: hsl(24 10% 45%);
+  --accent: hsl(0, 84%, 55%);
+  --muted: hsl(30, 10%, 96%);
+  --muted-foreground: hsl(30, 10%, 45%);
 
-  --border: hsl(188 18% 85%);
-  --shadow-card: 0 4px 20px -4px hsl(188 34% 45% / 0.15);
-  --shadow-elegant: 0 10px 40px -10px hsl(0 15% 34% / 0.2);
+  --border: hsl(30, 15%, 88%);
+  --shadow-card: 0 4px 20px -4px hsl(172 76% 40% / 0.15);
+  --shadow-elegant: 0 10px 40px -10px hsl(30 50% 20% / 0.2);
 
   --transition: all .3s ease;
-
-  /* shared gradient for hero & services – brand teal into chocolate */
-  --teal-brown-gradient: linear-gradient(
-    135deg,
-    #a9c8cb 0%,   /* light brand teal wash */
-    #5a8488 45%,  /* deeper teal mid */
-    #624949 100%  /* chocolate */
-  );
 }
 
 /* ===== Base ===== */
@@ -42,44 +32,25 @@ body{
 }
 h1,h2,h3{font-family:'Playfair Display',serif}
 
-/* ===== HERO (logo blended professionally) ===== */
+/* ===== Hero ===== */
+/* Uses your repo layout: /style.css + /images/… */
 .hero-section{
   position:relative;
   min-height:100vh;
   display:flex;align-items:center;justify-content:center;
-  text-align:center;color:#fff;
-  background: var(--teal-brown-gradient);   /* keep the brand gradient */
-  overflow:hidden;
-}
+  text-align:center;
+  color:#fff;
 
-/* place the logo ABOVE the gradient and blend it */
-.hero-section::before{
-  content:"";
-  position:absolute;inset:0;
-  background: url("images/salon-logo.png") center / 580px no-repeat; /* adjust size if you like */
-  opacity:.28;                            /* 0.25–0.45 for more/less visible */
-  mix-blend-mode: soft-light;             /* smooth color blending */
-  filter: blur(1px) brightness(1.08);     /* soften edges, remove hard square */
-  pointer-events:none;
+  /* gradient overlay + background image */
+  background:
+    linear-gradient(135deg, rgba(31,182,170,.55), rgba(58,44,36,.55)),
+    url('images/salon-logo.png') center/cover no-repeat;
 }
+.hero-overlay{position:absolute;inset:0;pointer-events:none}
+.hero-content{position:relative;max-width:800px;padding:2rem}
 
-/* soft radial vignette for pro look + readability */
-.hero-section::after{
-  content:"";
-  position:absolute;inset:0;
-  background: radial-gradient(
-    circle at center,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.05) 60%,
-    rgba(0,0,0,0.35) 100%
-  );
-  pointer-events:none;
-}
-
-.hero-overlay{position:absolute;inset:0;pointer-events:none} /* ok if present in HTML */
-.hero-content{position:relative;z-index:1;max-width:800px;padding:2rem}
-.hero-content h1{font-size:clamp(2.5rem,6vw,4rem);margin-bottom:1rem;text-shadow:0 2px 12px rgba(0,0,0,.28)}
-.hero-subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);opacity:.95;margin:0 auto 2rem;max-width:700px;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.hero-content h1{font-size:clamp(2.5rem,6vw,4rem);margin-bottom:1rem}
+.hero-subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);opacity:.95;margin:0 auto 2rem;max-width:700px}
 
 .social-links{display:flex;gap:1.25rem;justify-content:center;margin-top:1.25rem}
 .social-links a{color:#fff;transition:var(--transition)}
@@ -102,19 +73,16 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   font-weight:600;text-decoration:none;cursor:pointer;transition:var(--transition)
 }
 .btn-cta{background:var(--accent);color:#fff;box-shadow:var(--shadow-elegant)}
-.btn-cta:hover{background:hsl(188 38% 43%);transform:translateY(-2px)}
+.btn-cta:hover{background:hsl(0 84% 50%);transform:translateY(-2px)}
 .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-card)}
-.btn-primary:hover{background:hsl(188 34% 40%)}
+.btn-primary:hover{background:hsl(172 76% 35%)}
 .btn-secondary{background:var(--secondary);color:#fff;box-shadow:var(--shadow-card)}
-.btn-secondary:hover{background:hsl(0 15% 29%)}
+.btn-secondary:hover{background:hsl(30 50% 25%)}
 
-/* ===== Services (same gradient as hero) ===== */
-.section.gradient-section{
-  background: var(--teal-brown-gradient);
-  color:#fff;
-}
+/* ===== Services ===== */
+.gradient-section{background:linear-gradient(135deg,#1fb6aa 0%,#377e6f 55%,#b98a5c 100%);color:#fff}
 .services-grid{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
   gap:1.25rem;margin-top:1.25rem
 }
 .service-card{
@@ -154,14 +122,9 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 .footer-social{display:flex;gap:1rem;justify-content:center;margin:0 0 1.25rem}
 .footer-social a{color:#fff;text-decoration:none;transition:var(--transition)}
 .footer-social a:hover{color:var(--accent)}
-.footer-copy{opacity:.9}
 
 /* ===== Responsive ===== */
-@media (max-width:1024px){
-  .services-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
-}
 @media (max-width:768px){
   .btn{width:100%}
   .services-grid{grid-template-columns:1fr}
 }
-

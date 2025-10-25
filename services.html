@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salon 803 — Full Service Menu & Pricing</title>
+
+  <!-- Shared site styles (optional) -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Page-specific styles */
+    :root{
+      --teal:#1d7d82;
+      --teal-light:#2aa3a6;
+      --brown:#6b4b3e;
+      --accent:#ef4444;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"Inter",sans-serif;
+      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal) 45%, var(--brown) 100%);
+      color:#0f172a;
+      min-height:100vh;
+    }
+
+    /* Header with brand above title */
+    header{
+      text-align:center;
+      padding:3.5rem 1rem 2rem;
+      color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,.35);
+    }
+    .brand{
+      font-family:"Playfair Display",serif;
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.95;
+      margin-bottom:.25rem;
+    }
+    header h1{
+      font-family:"Playfair Display",serif;
+      font-size: clamp(2.25rem, 6vw, 3.5rem);
+      font-weight:700;
+      line-height:1.15;
+      margin-bottom:.5rem;
+    }
+    header p{
+      max-width:720px;
+      margin:.25rem auto 0;
+      color:#eef2ff;
+      opacity:.95;
+    }
+
+    /* Grid of services */
+    .services-container{
+      max-width:1100px;
+      margin:2rem auto;
+      padding:0 1.25rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+      gap:1.5rem;
+    }
+    .service-card{
+      background:rgba(255,255,255,.92);
+      border-radius:16px;
+      padding:1.5rem;
+      box-shadow:0 10px 25px rgba(0,0,0,.15);
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .service-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 15px 30px rgba(0,0,0,.2);
+    }
+    .service-card h2{
+      font-size:1.25rem;
+      margin-bottom:.5rem;
+      color:var(--teal);
+      font-weight:700;
+    }
+    .service-card p{
+      font-size:.95rem;
+      margin-bottom:.5rem;
+      color:#444;
+    }
+    .price{
+      font-weight:700;
+      color:var(--brown);
+      font-size:1.1rem;
+    }
+
+    .note{
+      text-align:center;
+      font-size:.9rem;
+      margin:2rem 1rem 0;
+      color:#eef2ff;
+      opacity:.9;
+    }
+
+    .btn-back{
+      display:block;
+      width:max-content;
+      margin:2.25rem auto 3rem;
+      padding:.9rem 1.8rem;
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:1rem;
+      transition:background .25s ease, transform .2s ease;
+    }
+    .btn-back:hover{ background:#dc2626; transform:translateY(-2px); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Salon 803</div>
+    <h1>Full Service Menu &amp; Pricing</h1>
+    <p>Explore our complete list of services below. Your beauty, our expertise.</p>
+  </header>
+
+  <div class="services-container">
+    <div class="service-card">
+      <h2>Traditional Sew-In</h2>
+      <p>Classic protective style with natural-looking results.</p>
+      <p class="price">$75</p>
+    </div>
+    <div class="service-card">
+      <h2>Versatile Sew-In</h2>
+      <p>Flexible styling options for any occasion.</p>
+      <p class="price">$115</p>
+    </div>
+    <div class="service-card">
+      <h2>Closure Sew-In</h2>
+      <p>Seamless closure for a natural finish.</p>
+      <p class="price">$110</p>
+    </div>
+    <div class="service-card">
+      <h2>Frontal Sew-In</h2>
+      <p>Hairline perfection with frontal installation.</p>
+      <p class="price">$125</p>
+    </div>
+    <div class="service-card">
+      <h2>Closure Wig Install</h2>
+      <p>Professional wig installation with closure.</p>
+      <p class="price">$135</p>
+    </div>
+    <div class="service-card">
+      <h2>Frontal Wig Install</h2>
+      <p>Flawless frontal wig application.</p>
+      <p class="price">$145</p>
+    </div>
+    <div class="service-card">
+      <h2>Traditional Quick Weave</h2>
+      <p>Fast, beautiful protective styling.</p>
+      <p class="price">$65</p>
+    </div>
+    <div class="service-card">
+      <h2>Closure Quick Weave</h2>
+      <p>Quick weave with natural closure.</p>
+      <p class="price">$75</p>
+    </div>
+    <div class="service-card">
+      <h2>Frontal Quick Weave</h2>
+      <p>Quick weave with frontal piece.</p>
+      <p class="price">$85</p>
+    </div>
+    <div class="service-card">
+      <h2>Hair Wash</h2>
+      <p>Deep cleansing and conditioning treatment.</p>
+      <p class="price">$25</p>
+    </div>
+    <div class="service-card">
+      <h2>Circle Braids</h2>
+      <p>Intricate braiding patterns.</p>
+      <p class="price">$15</p>
+    </div>
+    <div class="service-card">
+      <h2>Blow Out</h2>
+      <p>Professional blow dry and styling.</p>
+      <p class="price">$45</p>
+    </div>
+    <div class="service-card">
+      <h2>Silk Press</h2>
+      <p>Smooth, silky straight styling.</p>
+      <p class="price">$35</p>
+    </div>
+    <div class="service-card">
+      <h2>Take Down</h2>
+      <p>Safe and gentle style removal.</p>
+      <p class="price">$15</p>
+    </div>
+    <div class="service-card">
+      <h2>Detailed Cut</h2>
+      <p>Precision cutting and shaping.</p>
+      <p class="price">$10</p>
+    </div>
+    <div class="service-card">
+      <h2>With Adhesive</h2>
+      <p>Secure adhesive application.</p>
+      <p class="price">$10</p>
+    </div>
+    <div class="service-card">
+      <h2>Thick Hair</h2>
+      <p>Additional service for thick hair.</p>
+      <p class="price">$5</p>
+    </div>
+  </div>
+
+  <p class="note">* Prices may vary based on hair length, texture, or additional services.</p>
+
+  <a href="index.html" class="btn-back">← Back to Home</a>
+</body>
+</html>
