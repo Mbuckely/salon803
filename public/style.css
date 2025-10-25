@@ -1,21 +1,167 @@
+  --shadow-elegant: 0 10px 40px -10px hsl(0 15% 34% / 0.2);
+
+  --transition: all .3s ease;
+
+  /* shared gradient for hero & services – brand teal into chocolate */
+  --teal-brown-gradient: linear-gradient(
+    135deg,
+    #a9c8cb 0%,   /* light brand teal wash */
+    #5a8488 45%,  /* deeper teal mid */
+    #624949 100%  /* chocolate */
+  );
+}
+
+/* ===== Base ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+  color:var(--foreground);
+  background:var(--background);
+  line-height:1.6;
+}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+/* ===== HERO (logo blended professionally) ===== */
+.hero-section{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;color:#fff;
+  background: var(--teal-brown-gradient);   /* keep the brand gradient */
+  overflow:hidden;
+}
+
+/* place the logo ABOVE the gradient and blend it */
+.hero-section::before{
+  content:"";
+  position:absolute;inset:0;
+  background: url("images/salon-logo.png") center / 580px no-repeat; /* adjust size if you like */
+  opacity:.28;                            /* 0.25–0.45 for more/less visible */
+  mix-blend-mode: soft-light;             /* smooth color blending */
+  filter: blur(1px) brightness(1.08);     /* soften edges, remove hard square */
+  pointer-events:none;
+}
+
+/* soft radial vignette for pro look + readability */
+.hero-section::after{
+  content:"";
+  position:absolute;inset:0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.05) 60%,
+    rgba(0,0,0,0.35) 100%
+  );
+  pointer-events:none;
+}
+
+.hero-overlay{position:absolute;inset:0;pointer-events:none} /* ok if present in HTML */
+.hero-content{position:relative;z-index:1;max-width:800px;padding:2rem}
+.hero-content h1{font-size:clamp(2.5rem,6vw,4rem);margin-bottom:1rem;text-shadow:0 2px 12px rgba(0,0,0,.28)}
+.hero-subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);opacity:.95;margin:0 auto 2rem;max-width:700px;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+
+.social-links{display:flex;gap:1.25rem;justify-content:center;margin-top:1.25rem}
+.social-links a{color:#fff;transition:var(--transition)}
+.social-links a:hover{color:var(--accent);transform:translateY(-2px)}
+
+/* ===== Sections ===== */
+.section{padding:6rem 1rem}
+.container{max-width:64rem;margin:0 auto;text-align:center}
+.container-wide{max-width:90rem;margin:0 auto;padding:0 1rem}
+
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:600;color:var(--secondary);margin-bottom:1rem}
+.section-subtitle{font-size:1.125rem;color:var(--muted-foreground);margin-bottom:2rem}
+.section-text{font-size:1.125rem;color:var(--foreground);margin:0 auto 1.5rem;max-width:55rem}
+.section-cta{margin-top:1.25rem}
+
+/* ===== Buttons ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.75rem 2rem;border:0;border-radius:.6rem;
+  font-weight:600;text-decoration:none;cursor:pointer;transition:var(--transition)
+}
+.btn-cta{background:var(--accent);color:#fff;box-shadow:var(--shadow-elegant)}
+.btn-cta:hover{background:hsl(188 38% 43%);transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-card)}
+.btn-primary:hover{background:hsl(188 34% 40%)}
+.btn-secondary{background:var(--secondary);color:#fff;box-shadow:var(--shadow-card)}
+.btn-secondary:hover{background:hsl(0 15% 29%)}
+
+/* ===== Services (same gradient as hero) ===== */
+.section.gradient-section{
+  background: var(--teal-brown-gradient);
+  color:#fff;
+}
+.services-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1.25rem;margin-top:1.25rem
+}
+.service-card{
+  background:#fff;color:#111;text-align:left;padding:1.75rem;border-radius:.75rem;
+  box-shadow:var(--shadow-card);transition:var(--transition)
+}
+.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-elegant)}
+.service-card h3{font-size:1.25rem;color:var(--secondary);margin-bottom:.4rem}
+.service-card p{color:var(--muted-foreground);font-size:.95rem;margin-bottom:.8rem}
+.price{font-size:1.4rem;font-weight:700;color:var(--primary)}
+
+/* ===== Location ===== */
+.location-card{
+  background:#fff;color:#111;padding:2rem;border-radius:.75rem;box-shadow:var(--shadow-elegant);
+  display:flex;gap:1rem;align-items:flex-start;text-align:left;max-width:520px;margin:2rem auto 0
+}
+.icon-primary{color:var(--primary)}
+.location-name{font-weight:700;color:var(--secondary)}
+
+/* ===== Join Team ===== */
+.benefits-section{margin:2rem auto;max-width:600px;text-align:left}
+.benefits-list{list-style:none}
+.benefits-list li{padding:.5rem 0 .5rem 1.5rem;position:relative}
+.benefits-list li::before{content:"✓";position:absolute;left:0;color:var(--primary);font-weight:700}
+
+/* ===== Contact ===== */
+.contact-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;margin:2rem 0
+}
+.contact-card{background:#fff;color:#111;padding:1.5rem;border-radius:.75rem;box-shadow:var(--shadow-card)}
+.contact-card h3{color:var(--secondary);margin:1rem 0 .5rem}
+
+/* ===== Footer ===== */
+.footer{background:var(--secondary);color:#fff;text-align:center;padding:3rem 1rem}
+.footer-title{font-size:1.5rem;font-weight:700;margin-bottom:1rem}
+.footer-social{display:flex;gap:1rem;justify-content:center;margin:0 0 1.25rem}
+.footer-social a{color:#fff;text-decoration:none;transition:var(--transition)}
+.footer-social a:hover{color:var(--accent)}
+.footer-copy{opacity:.9}
+
+/* ===== Responsive ===== */
+@media (max-width:1024px){
+  .services-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:768px){
+  .btn{width:100%}
+  .services-grid{grid-template-columns:1fr}
+}
+
 /* ================================
-   SERVICES PAGE (#/services)
-   Use the same brand gradient
+   SERVICES PAGE (hash route: #/services)
    ================================ */
 
-/* Gradient hero band on the services "page" */
+/* Hero band on the Services page */
 #view-services header.section {
-  background: var(--teal-brown-gradient);
+  background: linear-gradient(135deg, #068f97, #1c7486);
   color: #fff;
   padding: 60px 20px 80px;
   text-align: center;
 }
 
-/* Titles on the gradient */
+/* Title & subtitle colors on the gradient */
 #view-services .section-title {
-  color: #fff;
-  font-family: "Playfair Display", serif;
-  font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+  color: #ffffff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
   margin: 10px 0 0;
 }
 #view-services .section-subtitle {
@@ -25,186 +171,85 @@
   font-size: 0.98rem;
 }
 
-/* Pull main content up under the gradient */
+/* Pull the content up a bit under the hero */
 #view-services main.section {
   max-width: 1100px;
   margin: -40px auto 60px;
   padding: 0 20px;
 }
 
-/* Grid + cards (matches your card style) */
+/* Grid of service cards */
 #view-services .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-  margin-top: 1.25rem;
+  gap: 20px;
 }
+
+/* Card styling */
 #view-services .service-card {
-  background: #fff;
-  color: #111;
-  text-align: left;
-  padding: 1.75rem;
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow-card);
-  transition: var(--transition);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 24px 20px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 #view-services .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-elegant);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
 }
+
+/* Card text */
 #view-services .service-card h3 {
-  font-size: 1.15rem;
-  color: var(--secondary);
-  margin-bottom: 0.4rem;
+  margin: 0 0 6px 0;
+  color: #025861;
+  font-size: 1.12rem;
+  font-weight: 700;
 }
 #view-services .service-card p {
-  color: var(--muted-foreground);
+  margin: 0 0 10px 0;
+  color: #444;
   font-size: 0.96rem;
-  margin-bottom: 0.65rem;
   line-height: 1.45;
 }
 #view-services .service-card .price,
 #view-services .service-card span {
   display: inline-block;
+  margin-top: 2px;
   font-weight: 700;
   color: #111;
 }
 
-/* Back button style on the gradient header */
-#view-services header.section .btn.btn-secondary {
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  padding: 0.55rem 0.9rem;
-  border-radius: 10px;
-}
-#view-services header.section .btn.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Page background to match site */
-body {
-  background: #f4f7f6;
-  color: var(--foreground);
-}
-
-/* Responsive tweak */
-@media (max-width: 768px) {
-  #view-services .services-grid {
-    grid-template-columns: 1fr;
-  }
-}
-/* ================================
-   FULL-PAGE GRADIENT for #/services
-   ================================ */
-
-/* Make the whole services view use the brand gradient */
-#view-services {
-  min-height: 100vh;
-  background: var(--teal-brown-gradient);
-  position: relative;
-  color: #fff; /* default text on this view */
-}
-
-/* Optional soft vignette for depth (like hero) */
-#view-services::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 50% 25%,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.06) 55%,
-    rgba(0, 0, 0, 0.28) 100%
-  );
-  pointer-events: none;
-}
-
-/* Header sits on the gradient (transparent background) */
-#view-services header.section {
-  background: transparent;
-  color: #fff;
-  padding: 60px 20px 30px;
+/* Note text and back link (if you add them later) */
+#view-services .note {
   text-align: center;
-  position: relative;
-  z-index: 1;
+  font-size: 0.92rem;
+  color: #555;
+  margin-top: 40px;
+}
+#view-services .back-link {
+  display: block;
+  text-align: center;
+  margin-top: 28px;
+  text-decoration: none;
+  color: #025861;
+  font-weight: 600;
+}
+#view-services .back-link:hover { text-decoration: underline; }
+
+/* Make sure the default page background matches the design */
+body {
+  background-color: #f4f7f6;
+  color: #222;
 }
 
-/* Title + subtitle on gradient */
-#view-services .section-title {
-  color: #fff;
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2rem, 2.8vw, 2.4rem);
-  margin: 10px 0 0;
-}
-#view-services .section-subtitle {
-  color: #e6f6f8;
-  opacity: 0.95;
-  margin-top: 8px;
-  font-size: 0.98rem;
-}
-
-/* Content area on gradient */
-#view-services main.section {
-  max-width: 1100px;
-  margin: 0 auto 60px; /* no negative margin; we’re already on gradient */
-  padding: 0 20px 40px;
-  position: relative;
-  z-index: 1; /* above the vignette overlay */
-}
-
-/* Grid + cards (unchanged, but scoped to services view) */
-#view-services .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-  margin-top: 1.25rem;
-}
-#view-services .service-card {
-  background: #fff;
-  color: #111;
-  text-align: left;
-  padding: 1.75rem;
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow-card);
-  transition: var(--transition);
-}
-#view-services .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-elegant);
-}
-#view-services .service-card h3 {
-  color: var(--secondary);
-  margin-bottom: 0.4rem;
-}
-#view-services .service-card p {
-  color: var(--muted-foreground);
-}
-
-/* Back button on gradient */
-#view-services .btn.btn-secondary {
+/* If you don't already have a .btn-secondary style, this will make the back button look good */
+.btn.btn-secondary {
   background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.92);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.9);
   padding: 0.55rem 0.9rem;
   border-radius: 10px;
 }
-#view-services .btn.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Footer text readable on gradient if you keep it inside view-services */
-#view-services .footer {
-  background: transparent;
-  color: #fff;
-}
-#view-services .footer-copy {
-  opacity: 0.9;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  #view-services .services-grid {
-    grid-template-columns: 1fr;
-  }
+.btn.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
 }
