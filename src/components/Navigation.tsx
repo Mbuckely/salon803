@@ -25,7 +25,7 @@ export const Navigation = () => {
   const navLinks = [
     { label: "Home", action: () => navigate("/") },
     { label: "Mission", action: () => scrollToSection("mission") },
-    { label: "Services", action: () => navigate("/services") },
+    { label: "Services", action: () => window.location.href = "./services.html" },
     { label: "Location", action: () => scrollToSection("location") },
     { label: "Contact", action: () => scrollToSection("contact") },
   ];
