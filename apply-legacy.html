@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Form | Salon 803</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #2aa3a6 0%, #1d7d82 45%, #6b4b3e 100%);
+      color: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 4rem 1rem;
+    }
+    .form-container {
+      background: #fff;
+      max-width: 600px;
+      width: 100%;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    h1 { text-align:center; font-size:2rem; margin-bottom:0.5rem; color:#1d7d82; }
+    p.intro { text-align:center; font-size:1rem; margin-bottom:2rem; color:#444; }
+    form label { display:block; font-weight:600; margin-top:1.2rem; margin-bottom:0.4rem; color:#333; }
+    form input, form textarea {
+      width:100%; padding:0.8rem; border:1.8px solid #ccc; border-radius:8px; font-size:1rem;
+      transition:border .3s ease, box-shadow .3s ease;
+    }
+    form input:focus, form textarea:focus {
+      outline:none; border-color:#1d7d82; box-shadow:0 0 0 3px rgba(29,125,130,.25);
+    }
+    textarea { min-height:120px; resize:vertical; }
+    .optional { font-weight:400; font-size:.9rem; color:#777; margin-left:4px; }
+    .btn-submit {
+      display:block; width:100%; margin-top:2rem; padding:.9rem; background:#1d7d82; color:#fff;
+      font-size:1.1rem; font-weight:600; border:none; border-radius:10px; cursor:pointer;
+      transition:background .3s ease, transform .2s ease;
+    }
+    .btn-submit:hover { background:#155d61; transform:translateY(-2px); }
+    .back-link { display:inline-block; margin-bottom:1.5rem; text-decoration:none; color:#1d7d82; font-weight:600; }
+    .back-link:hover { color:#0f4c4f; text-decoration:underline; }
+
+    /* Honeypot anti-spam */
+    .hp { position:absolute; left:-9999px; top:-9999px; height:0; width:0; overflow:hidden; }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <a href="/" class="back-link">← Back to Home</a>
+
+    <h1>Application Form</h1>
+    <p class="intro">Fill out the form below to apply to join our team at <strong>Salon 803</strong>.</p>
+
+    <!-- Submit to backend function with PDF support -->
+    <form id="apply-form" action="https://mdeugjnzdhwsijylcvts.supabase.co/functions/v1/apply" method="POST" enctype="multipart/form-data">
+      <!-- Honeypot anti-spam -->
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" />
+
+      <label>Full Name *</label>
+      <input type="text" name="fullName" required>
+
+      <label>Email *</label>
+      <input type="email" name="email" required>
+
+      <label>Phone Number *</label>
+      <input type="tel" name="phone" placeholder="000-000-0000" required>
+
+      <label>Weekly Availability *</label>
+      <input type="text" name="availability" placeholder="e.g., Mon–Fri 9am–5pm" required>
+
+      <label>Social Media Handles <span class="optional">(optional)</span></label>
+      <input type="text" name="social" placeholder="@yourusername">
+
+      <label>Tell us about yourself *</label>
+      <textarea name="message" required></textarea>
+
+      <label>Resume (PDF) <span class="optional">(optional)</span></label>
+      <input type="file" name="resumeFile" accept="application/pdf" />
+
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+
+    <script>
+      const form = document.getElementById('apply-form');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        try {
+          const res = await fetch(form.action, { method: 'POST', body: fd });
+          let data = {};
+          try { data = await res.json(); } catch (_) {}
+          if (!res.ok || (data && data.ok === false)) {
+            alert((data && data.error) || 'Submission failed. Please try again.');
+            return;
+          }
+          window.location.href = '/thank-you.html';
+        } catch (err) {
+          alert('Network error. Please try again.');
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>
