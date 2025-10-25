@@ -17,18 +17,17 @@
   <div id="root"></div>
   <script>
     (function() {
-      // Redirect non-hash routes (e.g., /services or /services.html) to hash-based routes (/#/services)
+      // Robust redirect for non-hash URLs (handles trailing slashes and .html)
       if (location.hash && location.hash.length > 1) return;
       var path = location.pathname
         .replace(/\/index\.html$/i, "/")
         .replace(/\.html?$/i, "");
+      // Remove trailing slash(es) but keep root
+      path = path.replace(/\/+$/, "") || "/";
       if (path === "/") return;
-      var lastSlash = path.lastIndexOf("/");
-      var base = lastSlash > 0 ? path.slice(0, lastSlash) : "/";
-      var route = path.slice(base.length);
-      if (!route.startsWith("/")) route = "/" + route;
-      var sep = base.endsWith("/") ? "" : "/";
-      var newUrl = base + sep + "#" + route + location.search;
+      var newUrl = "/#" + path + location.search;
+      // Ensure single slash after #
+      newUrl = newUrl.replace("/#//", "/#/");
       location.replace(newUrl);
     })();
   </script>
