@@ -154,9 +154,9 @@ const Index = () => {
             </div>
 
             <div className="see-more-container" style={{ textAlign: 'center', marginTop: '2rem' }}>
-              <Link to="/services" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>
+              <a href="/services.html" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>
                 View All Services
-              </Link>
+              </a>
             </div>
           </div>
         </section>
