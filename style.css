@@ -1,3 +1,23 @@
+/* ===== Design tokens (Salon 8O3) ===== */
+:root{
+  --background: #ffffff;
+  --foreground: #2b2423;            /* deep warm espresso for body text */
+
+  /* Brand teal (from the “O”) */
+  --primary: hsl(188 34% 45%);      /* ~#5f8f95 – richer for contrast */
+  --primary-foreground: #ffffff;
+
+  /* Brand chocolate (from SALON text & bubbles) */
+  --secondary: hsl(0 15% 34%);      /* ≈ #624949 */
+  --secondary-foreground: #ffffff;
+
+  /* Accent = brighter teal highlight (replaces the red) */
+  --accent: hsl(188 38% 48%);
+  --muted: hsl(24 12% 96%);
+  --muted-foreground: hsl(24 10% 45%);
+
+  --border: hsl(188 18% 85%);
+  --shadow-card: 0 4px 20px -4px hsl(188 34% 45% / 0.15);
   --shadow-elegant: 0 10px 40px -10px hsl(0 15% 34% / 0.2);
 
   --transition: all .3s ease;
@@ -145,111 +165,3 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   .services-grid{grid-template-columns:1fr}
 }
 
-/* ================================
-   SERVICES PAGE (hash route: #/services)
-   ================================ */
-
-/* Hero band on the Services page */
-#view-services header.section {
-  background: linear-gradient(135deg, #068f97, #1c7486);
-  color: #fff;
-  padding: 60px 20px 80px;
-  text-align: center;
-}
-
-/* Title & subtitle colors on the gradient */
-#view-services .section-title {
-  color: #ffffff;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-  margin: 10px 0 0;
-}
-#view-services .section-subtitle {
-  color: #e6f6f8;
-  opacity: 0.95;
-  margin-top: 8px;
-  font-size: 0.98rem;
-}
-
-/* Pull the content up a bit under the hero */
-#view-services main.section {
-  max-width: 1100px;
-  margin: -40px auto 60px;
-  padding: 0 20px;
-}
-
-/* Grid of service cards */
-#view-services .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-/* Card styling */
-#view-services .service-card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  padding: 24px 20px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-#view-services .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
-}
-
-/* Card text */
-#view-services .service-card h3 {
-  margin: 0 0 6px 0;
-  color: #025861;
-  font-size: 1.12rem;
-  font-weight: 700;
-}
-#view-services .service-card p {
-  margin: 0 0 10px 0;
-  color: #444;
-  font-size: 0.96rem;
-  line-height: 1.45;
-}
-#view-services .service-card .price,
-#view-services .service-card span {
-  display: inline-block;
-  margin-top: 2px;
-  font-weight: 700;
-  color: #111;
-}
-
-/* Note text and back link (if you add them later) */
-#view-services .note {
-  text-align: center;
-  font-size: 0.92rem;
-  color: #555;
-  margin-top: 40px;
-}
-#view-services .back-link {
-  display: block;
-  text-align: center;
-  margin-top: 28px;
-  text-decoration: none;
-  color: #025861;
-  font-weight: 600;
-}
-#view-services .back-link:hover { text-decoration: underline; }
-
-/* Make sure the default page background matches the design */
-body {
-  background-color: #f4f7f6;
-  color: #222;
-}
-
-/* If you don't already have a .btn-secondary style, this will make the back button look good */
-.btn.btn-secondary {
-  background: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.9);
-  padding: 0.55rem 0.9rem;
-  border-radius: 10px;
-}
-.btn.btn-secondary:hover {
-  background: rgba(255,255,255,0.1);
-}
