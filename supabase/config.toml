@@ -1,4 +1,1 @@
 project_id = "mdeugjnzdhwsijylcvts"
-
-[functions.view-resume]
-verify_jwt = false
