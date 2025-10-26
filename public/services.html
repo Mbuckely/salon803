@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Salon 803 | Full Service Menu & Pricing</title>
 
-    <!-- Fonts (same as home) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,53 +13,27 @@
       rel="stylesheet"
     />
 
-    <!-- Shared styles (relative path) -->
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- Page-specific tweaks to extend the gradient to the whole page -->
-    <style>
-      /* Full-page gradient behind everything */
-      body.services-gradient {
-        background: var(--teal-brown-gradient);
-        color: #fff;
-        min-height: 100vh;
-      }
-      /* Header sits on the gradient without adding another background */
-      header.section { background: transparent; }
-
-      /* Make small text readable on gradient */
-      .note { color: #e6f6f8; opacity: .95; }
-
-      /* Outline-style back button that works on gradient */
-      .btn.btn-secondary {
-        background: transparent;
-        color: #fff;
-        border: 1px solid rgba(255,255,255,.9);
-        padding: .55rem .9rem;
-        border-radius: 10px;
-      }
-      .btn.btn-secondary:hover { background: rgba(255,255,255,.1); }
-    </style>
+    <!-- Shared brand styles -->
+    <link rel="stylesheet" href="style.css?v=1" />
   </head>
 
-  <body class="services-gradient">
-    <!-- Header on the gradient -->
+  <!-- ✅ This ID activates the full gradient background -->
+  <body id="view-services">
+    <!-- Header -->
     <header class="section" aria-label="Salon 803 Services">
       <div class="container">
         <nav style="margin-bottom:1rem;">
-          <!-- Back to home -->
+          <!-- Back to Home -->
           <a href="index.html" class="btn btn-secondary">← Back to Home</a>
         </nav>
 
         <div class="subtitle" style="text-transform:uppercase; letter-spacing:3px; opacity:.9;">Salon 803</div>
-        <h1 class="section-title" style="color:#fff;">Full Service Menu &amp; Pricing</h1>
-        <p class="section-subtitle" style="color:#e6f6f8;">
-          Explore our complete list of services below. Your beauty, our expertise.
-        </p>
+        <h1 class="section-title">Full Service Menu &amp; Pricing</h1>
+        <p class="section-subtitle">Explore our complete list of services below. Your beauty, our expertise.</p>
       </div>
     </header>
 
-    <!-- Cards use the same classes your CSS already styles -->
+    <!-- Services Grid -->
     <main class="section">
       <div class="container-wide">
         <section class="services-grid">
@@ -155,9 +129,7 @@
           </div>
         </section>
 
-        <p class="note" style="text-align:center; margin-top:2rem;">
-          * Prices may vary based on hair length, texture, or additional services.
-        </p>
+        <p class="note">* Prices may vary based on hair length, texture, or additional services.</p>
 
         <div style="text-align:center; margin-top: 2rem;">
           <a href="index.html" class="btn btn-secondary">← Back to Home</a>
@@ -165,6 +137,7 @@
       </div>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <p class="footer-copy">© <span id="currentYear"></span> Salon 803. All rights reserved.</p>
