@@ -1,0 +1,242 @@
+/* ===== Salon 803 · Services (standalone page CSS) ===== */
+/* Place this file at: public/services.css */
+
+/* -- Design tokens -- */
+:root{
+  --background: #ffffff;
+  --foreground: #2b2423;
+
+  /* Brand teal & chocolate */
+  --primary: hsl(188 34% 45%);
+  --primary-foreground: #ffffff;
+  --secondary: hsl(0 15% 34%);
+  --secondary-foreground: #ffffff;
+
+  /* Accents */
+  --accent: hsl(188 38% 48%);
+  --muted: hsl(24 12% 96%);
+  --muted-foreground: hsl(24 10% 45%);
+
+  --border: hsl(188 18% 85%);
+  --shadow-card: 0 4px 20px -4px hsl(188 34% 45% / 0.15);
+  --shadow-elegant: 0 10px 40px -10px hsl(0 15% 34% / 0.2);
+
+  --transition: all .3s ease;
+
+  /* Shared gradient: teal → chocolate */
+  --teal-brown-gradient: linear-gradient(
+    135deg,
+    #a9c8cb 0%,
+    #5a8488 45%,
+    #624949 100%
+  );
+}
+
+/* -- Base (lightweight to avoid global conflicts) -- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+  color:var(--foreground);
+  background:var(--background);
+  line-height:1.6;
+}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+/* Utility containers */
+.section{padding:6rem 1rem}
+.container{max-width:64rem;margin:0 auto;text-align:center}
+.container-wide{max-width:90rem;margin:0 auto;padding:0 1rem}
+
+/* Titles */
+.section-title{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:600;
+  color:var(--secondary);
+  margin-bottom:1rem
+}
+.section-subtitle{
+  font-size:1.125rem;
+  color:var(--muted-foreground);
+  margin-bottom:2rem
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.75rem 2rem;border:0;border-radius:.6rem;
+  font-weight:600;text-decoration:none;cursor:pointer;transition:var(--transition)
+}
+.btn-cta{background:var(--accent);color:#fff;box-shadow:var(--shadow-elegant)}
+.btn-cta:hover{background:hsl(188 38% 43%);transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-card)}
+.btn-primary:hover{background:hsl(188 34% 40%)}
+.btn-secondary{background:var(--secondary);color:#fff;box-shadow:var(--shadow-card)}
+.btn-secondary:hover{background:hsl(0 15% 29%)}
+
+/* ================================
+   SERVICES PAGE SCOPE
+   Wrap the page in <div id="view-services">…</div>
+   ================================ */
+
+#view-services{
+  min-height: 100vh;
+  background: var(--teal-brown-gradient);
+  position: relative;
+  color: #fff;                 /* default text tone on services view */
+  animation: sv-fade .25s ease-in;
+}
+
+/* Soft vignette over gradient for depth */
+#view-services::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.06) 55%,
+    rgba(0,0,0,.28) 100%
+  );
+  pointer-events:none;
+}
+
+/* Optional hero with blended logo over gradient */
+#view-services .hero-section{
+  position:relative;
+  min-height:60vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;color:#fff;
+  background: transparent;
+  overflow:hidden;
+}
+#view-services .hero-section::before{
+  content:"";
+  position:absolute;inset:0;
+  /* Put your logo at public/images/salon-logo.png or change the path */
+  background: url("images/salon-logo.png") center / 580px no-repeat;
+  opacity:.28;
+  mix-blend-mode: soft-light;
+  filter: blur(1px) brightness(1.08);
+  pointer-events:none;
+}
+#view-services .hero-section::after{
+  content:"";
+  position:absolute;inset:0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.05) 60%,
+    rgba(0,0,0,0.35) 100%
+  );
+  pointer-events:none;
+}
+#view-services .hero-content{position:relative;z-index:1;max-width:800px;padding:2rem}
+#view-services .hero-content h1{
+  font-size:clamp(2.5rem,6vw,4rem);
+  margin-bottom:1rem;
+  text-shadow:0 2px 12px rgba(0,0,0,.28)
+}
+#view-services .hero-subtitle{
+  font-size:clamp(1.1rem,2.5vw,1.35rem);
+  opacity:.95;margin:0 auto 2rem;max-width:700px;
+  text-shadow:0 1px 8px rgba(0,0,0,.25)
+}
+
+/* Header on gradient */
+#view-services header.section{
+  background: transparent;
+  color:#fff;
+  text-align:center;
+  padding:60px 20px 30px;
+  position: relative;
+  z-index: 1;
+}
+#view-services .section-title{
+  color:#fff;
+  font-family:'Playfair Display',serif;
+  font-size: clamp(2rem, 2.8vw, 2.4rem);
+  margin: 10px 0 0;
+}
+#view-services .section-subtitle{
+  color:#e6f6f8;
+  opacity:.95;
+  margin-top:8px;
+  font-size:.98rem;
+}
+
+/* Content on gradient */
+#view-services main.section{
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Services grid + cards */
+#view-services .services-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:1.25rem;
+  margin-top:1.25rem;
+}
+#view-services .service-card{
+  background:#fff;color:#111;text-align:left;
+  padding:1.75rem;border-radius:.75rem;
+  box-shadow:var(--shadow-card);transition:var(--transition)
+}
+#view-services .service-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-elegant)
+}
+#view-services .service-card h3{
+  font-size:1.15rem;color:var(--secondary);margin-bottom:.4rem
+}
+#view-services .service-card p{
+  color:var(--muted-foreground);font-size:.96rem;margin-bottom:.65rem;line-height:1.45
+}
+#view-services .service-card .price{
+  font-size:1.2rem;font-weight:700;color:var(--primary)
+}
+
+/* On-gradient “Back” button style */
+#view-services .btn.btn-secondary{
+  background: transparent;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.92);
+  padding:.55rem .9rem;border-radius:10px;
+}
+#view-services .btn.btn-secondary:hover{
+  background: rgba(255,255,255,.1);
+}
+
+/* Note text on gradient */
+#view-services .note{
+  color:#e6f6f8;
+  text-align:center;
+  margin-top:2rem;
+  opacity:.95;
+}
+
+/* Contact / location blocks (optional reuse) */
+#view-services .location-card{
+  background:#fff;color:#111;padding:2rem;border-radius:.75rem;box-shadow:var(--shadow-elegant);
+  display:flex;gap:1rem;align-items:flex-start;text-align:left;max-width:520px;margin:2rem auto 0
+}
+#view-services .icon-primary{color:var(--primary)}
+#view-services .location-name{font-weight:700;color:var(--secondary)}
+
+/* Responsive tweaks */
+@media (max-width:1024px){
+  #view-services .services-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:768px){
+  .btn{width:100%}
+  #view-services .services-grid{grid-template-columns:1fr}
+}
+
+/* Tiny fade-in */
+@keyframes sv-fade{
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
