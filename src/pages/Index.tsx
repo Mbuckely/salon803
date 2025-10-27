@@ -154,41 +154,56 @@ const Index = () => {
         </section>
       </header>
 
-      <main id="main">
-        <section id="mission" className="section" aria-labelledby="mission-title">
-          <div className="container">
-            <h2 id="mission-title" className="section-title">
-              Our Mission
-            </h2>
-            <p className="section-text">
-              Welcome to Salon 803, North Houston's newest go-to destination for quality hair care at prices you can
-              afford. We're an innovative and up-and-coming salon dedicated to providing flawless styles and
-              full-service hair care without the hassle or high cost.
-            </p>
-            <div className="section-cta">
-              <button className="btn btn-cta" onClick={() => scrollToSection("passion")}>
-                Our Passion
-              </button>
-            </div>
-          </div>
-        </section>
+<main id="main">
+  {/* Mission */}
+  <section id="mission" className="section" aria-labelledby="mission-title">
+    <div className="container">
+      <h2 id="mission-title" className="section-title">Our Mission</h2>
 
-        <section id="passion" className="section" aria-labelledby="passion-title">
-          <div className="container">
-            <h2 id="passion-title" className="section-title">
-              Our Passion
-            </h2>
-            <p className="section-text">
-              At Salon 803, we love all things beauty. Our passion for the industry has made us a trusted destination
-              for modern hair care, custom styling, and expert service.
-            </p>
-            <div className="section-cta">
-              <button className="btn btn-cta" onClick={() => scrollToSection("services")}>
-                Explore Our Services
-              </button>
-            </div>
-          </div>
-        </section>
+      <p className="section-text">
+        <strong>Salon 803</strong> — Affordable styles, full hair services, and walk-ins welcome.
+        We’re bringing North Houston quality hair care without the high price tag.
+      </p>
+
+      <p className="section-text" style={{marginTop: '0.5rem'}}>
+        <strong>Soon opening in North Houston:</strong> 4444 Cypress Creek Parkway, STE 30, Houston, TX 77068
+      </p>
+
+      <ul className="section-text" style={{listStyle:'none', paddingLeft:0, marginTop:'0.75rem'}}>
+        <li><strong>No booking fees</strong></li>
+        <li><strong>No appointment needed</strong></li>
+        <li><strong>Just walk in and get styled!</strong></li>
+      </ul>
+
+      <p className="section-text" style={{fontStyle:'italic', marginTop:'0.5rem'}}>
+        Where quality meets affordability.
+      </p>
+
+      <div className="section-cta">
+        <button className="btn btn-cta" onClick={() => scrollToSection("passion")}>
+          Our Passion
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {/* Passion */}
+  <section id="passion" className="section" aria-labelledby="passion-title">
+    <div className="container">
+      <h2 id="passion-title" className="section-title">Our Passion</h2>
+      <p className="section-text">
+        We love all things beauty. Salon 803 offers sew-ins, custom styles, and full-service hair care—
+        delivered with expertise, care, and prices that make great hair accessible.
+      </p>
+      <div className="section-cta">
+        <button className="btn btn-cta" onClick={() => scrollToSection("services")}>
+          Explore Our Services
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
 
         <section id="services" className="section gradient-section" aria-labelledby="services-title">
           <div className="container-wide">
