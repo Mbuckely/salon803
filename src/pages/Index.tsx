@@ -203,8 +203,8 @@ const Index = () => {
             </h2>
             <p className="section-text">
               At <strong>Salon 803</strong>, we’re passionate about helping every client look and feel their best. From
-              sew-ins and custom styles to full-service hair care, we combine creativity, quality, and care — making
-              great hair accessible and affordable for everyone.
+              sew-ins and custom styles to full-service hair care, we combine creativity, quality, and care making great
+              hair accessible and affordable for everyone.
             </p>
             <div className="section-cta">
               <button className="btn btn-cta" onClick={() => scrollToSection("services")}>
