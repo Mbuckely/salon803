@@ -163,8 +163,8 @@ const Index = () => {
             </h2>
 
             <p className="section-text">
-              <strong>Salon 803</strong> — Affordable Styles • Full Hair Services • Walk-Ins Welcome. Looking for
-              stylish hair without the high price tag?
+              <strong>Salon 803</strong> — Offering affordable styles, comprehensive hair services, and a welcoming
+              walk-in experience. Discover exceptional style without the high price tag.
             </p>
 
             <p className="section-text">
