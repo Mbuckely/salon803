@@ -154,71 +154,41 @@ const Index = () => {
         </section>
       </header>
 
-<main id="main">
-  {/* Mission Section */}
-  <section id="mission" className="section" aria-labelledby="mission-title">
-    <div className="container">
-      <h2 id="mission-title" className="section-title">Our Mission</h2>
-      <p className="section-text">
-        Welcome to <strong>Salon 803</strong>, North Houston's newest go-to destination for quality hair care at prices you can afford. 
-        We're an innovative and up-and-coming salon dedicated to providing flawless styles and full-service hair care without 
-        the hassle or high cost.
-      </p>
-
-      <div className="panel announce">
-        <div className="announce-row">
-          <div className="announce-pin" aria-hidden="true">📍</div>
-          <div>
-            <p className="announce-lead"><strong>Now Open in North Houston!</strong></p>
-            <p className="announce-address">
-              <a
-                className="address-link"
-                href="https://maps.google.com/?q=4444+Cypress+Creek+Parkway+STE+30+Houston+TX+77068"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                4444 Cypress Creek Parkway, STE 30, Houston, TX 77068
-              </a>
+      <main id="main">
+        <section id="mission" className="section" aria-labelledby="mission-title">
+          <div className="container">
+            <h2 id="mission-title" className="section-title">
+              Our Mission
+            </h2>
+            <p className="section-text">
+              Welcome to Salon 803, North Houston's newest go-to destination for quality hair care at prices you can
+              afford. We're an innovative and up-and-coming salon dedicated to providing flawless styles and
+              full-service hair care without the hassle or high cost.
             </p>
+            <div className="section-cta">
+              <button className="btn btn-cta" onClick={() => scrollToSection("passion")}>
+                Our Passion
+              </button>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <ul className="checks">
-          <li><strong>No booking fees</strong></li>
-          <li><strong>No appointment needed</strong></li>
-          <li><strong>Just walk in and get styled!</strong></li>
-        </ul>
-
-        <p className="tagline">✨ Where quality meets affordability.</p>
-      </div>
-
-      <div className="section-cta">
-        <button className="btn btn-cta" onClick={() => scrollToSection("passion")}>
-          Our Passion
-        </button>
-      </div>
-    </div>
-  </section>
-
-  {/* Passion Section */}
-  <section id="passion" className="section" aria-labelledby="passion-title">
-    <div className="container">
-      <h2 id="passion-title" className="section-title">Our Passion</h2>
-      <p className="section-text">
-        At <strong>Salon 803</strong>, we love all things beauty. Our passion for the industry has made us a trusted destination 
-        for modern hair care, custom styling, and expert service. Whether it’s a sew-in, a closure, or a full transformation, 
-        we bring artistry, care, and confidence to every client.
-      </p>
-
-      <div className="section-cta">
-        <button className="btn btn-cta" onClick={() => scrollToSection("services")}>
-          Explore Our Services
-        </button>
-      </div>
-    </div>
-  </section>
-</main>
-
+        <section id="passion" className="section" aria-labelledby="passion-title">
+          <div className="container">
+            <h2 id="passion-title" className="section-title">
+              Our Passion
+            </h2>
+            <p className="section-text">
+              At Salon 803, we love all things beauty. Our passion for the industry has made us a trusted destination
+              for modern hair care, custom styling, and expert service.
+            </p>
+            <div className="section-cta">
+              <button className="btn btn-cta" onClick={() => scrollToSection("services")}>
+                Explore Our Services
+              </button>
+            </div>
+          </div>
+        </section>
 
         <section id="services" className="section gradient-section" aria-labelledby="services-title">
           <div className="container-wide">
