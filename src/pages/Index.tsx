@@ -168,12 +168,6 @@ const Index = () => {
             </p>
 
             <p className="section-text">
-              <strong>Soon Opening in North Houston!</strong>
-              <br />
-              4444 Cypress Creek Parkway, STE 30, Houston, TX 77068
-            </p>
-
-            <p className="section-text">
               Salon 803 offers sew-ins, custom styles, and full-service hair care — all at affordable prices.
             </p>
 
