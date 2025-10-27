@@ -168,7 +168,7 @@ const Index = () => {
             </p>
 
             <p className="section-text">
-              Salon 803 offers sew-ins, custom styles, and full-service hair care — all at affordable prices.
+              Salon 803 offers sew-ins, custom styles, and full-service hair care all at affordable prices.
             </p>
 
             <ul className="section-text" style={{ listStyle: "none", paddingLeft: 0 }}>
