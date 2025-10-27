@@ -160,11 +160,7 @@ const Index = () => {
             <h2 id="mission-title" className="section-title">
               Our Mission
             </h2>
-            <p className="section-text">
-              Welcome to Salon 803, North Houston's newest go-to destination for quality hair care at prices you can
-              afford. We're an innovative and up-and-coming salon dedicated to providing flawless styles and
-              full-service hair care without the hassle or high cost.
-            </p>
+            <p className="section-text">Welcome to Salon 803.</p>
             <div className="section-cta">
               <button className="btn btn-cta" onClick={() => scrollToSection("passion")}>
                 Our Passion
