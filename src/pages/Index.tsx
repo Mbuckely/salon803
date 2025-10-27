@@ -155,16 +155,44 @@ const Index = () => {
       </header>
 
       <main id="main">
+        {/* Mission */}
         <section id="mission" className="section" aria-labelledby="mission-title">
           <div className="container">
             <h2 id="mission-title" className="section-title">
               Our Mission
             </h2>
+
             <p className="section-text">
-              Welcome to Salon 803, North Houston's newest go-to destination for quality hair care at prices you can
-              afford. We're an innovative and up-and-coming salon dedicated to providing flawless styles and
-              full-service hair care without the hassle or high cost.
+              <strong>Salon 803</strong> — Affordable Styles • Full Hair Services • Walk-Ins Welcome. Looking for
+              stylish hair without the high price tag?
             </p>
+
+            <p className="section-text">
+              <strong>Soon Opening in North Houston!</strong>
+              <br />
+              4444 Cypress Creek Parkway, STE 30, Houston, TX 77068
+            </p>
+
+            <p className="section-text">
+              Salon 803 offers sew-ins, custom styles, and full-service hair care — all at affordable prices.
+            </p>
+
+            <ul className="section-text" style={{ listStyle: "none", paddingLeft: 0 }}>
+              <li>
+                ✨ <strong>No booking fees</strong>
+              </li>
+              <li>
+                ✨ <strong>No appointment needed</strong>
+              </li>
+              <li>
+                ✨ <strong>Just walk in and get styled!</strong>
+              </li>
+            </ul>
+
+            <p className="section-text" style={{ fontStyle: "italic", marginTop: "0.5rem" }}>
+              💇‍♀️ Where quality meets affordability.
+            </p>
+
             <div className="section-cta">
               <button className="btn btn-cta" onClick={() => scrollToSection("passion")}>
                 Our Passion
@@ -173,14 +201,16 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Passion */}
         <section id="passion" className="section" aria-labelledby="passion-title">
           <div className="container">
             <h2 id="passion-title" className="section-title">
               Our Passion
             </h2>
             <p className="section-text">
-              At Salon 803, we love all things beauty. Our passion for the industry has made us a trusted destination
-              for modern hair care, custom styling, and expert service.
+              At <strong>Salon 803</strong>, we’re passionate about helping every client look and feel their best. From
+              sew-ins and custom styles to full-service hair care, we combine creativity, quality, and care — making
+              great hair accessible and affordable for everyone.
             </p>
             <div className="section-cta">
               <button className="btn btn-cta" onClick={() => scrollToSection("services")}>
