@@ -184,7 +184,7 @@ const Index = () => {
             </ul>
 
             <p className="section-text" style={{ fontStyle: "italic", marginTop: "0.5rem" }}>
-              💇‍♀️ Where quality meets affordability.
+              Where quality meets affordability.
             </p>
 
             <div className="section-cta">
