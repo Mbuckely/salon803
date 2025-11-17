@@ -225,22 +225,22 @@ const Index = () => {
               <div className="service-card">
                 <h3>Traditional Sew-In</h3>
                 <p>Classic protective style with natural-looking results</p>
-                <div className="price">$75</div>
+                <div className="price">$100</div>
               </div>
               <div className="service-card">
                 <h3>Closure Wig Install</h3>
                 <p>Professional wig installation with closure</p>
-                <div className="price">$135</div>
+                <div className="price">$125</div>
               </div>
               <div className="service-card">
                 <h3>Silk Press</h3>
                 <p>Smooth, silky straight styling</p>
-                <div className="price">$35</div>
+                <div className="price">$70</div>
               </div>
               <div className="service-card">
                 <h3>Blow Out</h3>
                 <p>Professional blow dry and styling</p>
-                <div className="price">$45</div>
+                <div className="price">$15</div>
               </div>
             </div>
 
