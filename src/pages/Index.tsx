@@ -84,7 +84,7 @@ const Index = () => {
           <div className="hero-content">
             <h1>Professional Hair Care & Styling in North Houston</h1>
             <p className="hero-subtitle">
-              Flawless styles and full-service hair care without the hassle or high cost. Delivering quality styles at
+              Flawless styles and full service hair care without the hassle or high cost. Delivering quality styles at
               affordable prices.
             </p>
             <button className="btn btn-cta" onClick={() => scrollToSection("mission")}>
@@ -203,7 +203,7 @@ const Index = () => {
             </h2>
             <p className="section-text">
               At <strong>Salon 803</strong>, we’re passionate about helping every client look and feel their best. From
-              sew-ins and custom styles to full-service hair care, we combine creativity, quality, and care making great
+              sew-ins and custom styles to full service hair care, we combine creativity, quality, and care making great
               hair accessible and affordable for everyone.
             </p>
             <div className="section-cta">
