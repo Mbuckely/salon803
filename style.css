@@ -52,15 +52,9 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   overflow:hidden;
 }
 
-/* place the logo ABOVE the gradient and blend it */
+/* Keep the homepage hero as a clean gradient without a logo panel. */
 .hero-section::before{
-  content:"";
-  position:absolute;inset:0;
-  background: url("images/salon-logo.png") center / 580px no-repeat; /* adjust size if you like */
-  opacity:.28;                            /* 0.25–0.45 for more/less visible */
-  mix-blend-mode: soft-light;             /* smooth color blending */
-  filter: blur(1px) brightness(1.08);     /* soften edges, remove hard square */
-  pointer-events:none;
+  content:none;
 }
 
 /* soft radial vignette for pro look + readability */
@@ -84,6 +78,37 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 .social-links{display:flex;gap:1.25rem;justify-content:center;margin-top:1.25rem}
 .social-links a{color:#fff;transition:var(--transition)}
 .social-links a:hover{color:var(--accent);transform:translateY(-2px)}
+
+/* ===== Scroll reveal ===== */
+.reveal-on-scroll{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s ease;
+  will-change:opacity, transform;
+}
+.reveal-on-scroll.reveal-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.service-card.reveal-on-scroll:nth-child(2),
+.contact-card.reveal-on-scroll:nth-child(2){
+  transition-delay:.08s;
+}
+.service-card.reveal-on-scroll:nth-child(3),
+.contact-card.reveal-on-scroll:nth-child(3){
+  transition-delay:.16s;
+}
+.service-card.reveal-on-scroll:nth-child(4){
+  transition-delay:.24s;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal-on-scroll{
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+}
 
 /* ===== Sections ===== */
 .section{padding:6rem 1rem}
@@ -112,6 +137,14 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 .section.gradient-section{
   background: var(--teal-brown-gradient);
   color:#fff;
+}
+#services{
+  text-align:center;
+}
+#services .services-grid{
+  max-width:1100px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .services-grid{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
@@ -147,6 +180,12 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 }
 .contact-card{background:#fff;color:#111;padding:1.5rem;border-radius:.75rem;box-shadow:var(--shadow-card)}
 .contact-card h3{color:var(--secondary);margin:1rem 0 .5rem}
+.contact-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:1rem;
+}
 
 /* ===== Footer ===== */
 .footer{background:var(--secondary);color:#fff;text-align:center;padding:3rem 1rem}

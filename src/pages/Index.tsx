@@ -7,6 +7,36 @@ const Index = () => {
     if (yearSpan) {
       yearSpan.textContent = new Date().getFullYear().toString();
     }
+
+    const revealItems = document.querySelectorAll(
+      "#main .section, #main .service-card, #main .location-card, #main .contact-card, #main .benefits-section",
+    );
+
+    if (!("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("reveal-visible"));
+      return;
+    }
+
+    revealItems.forEach((item) => item.classList.add("reveal-on-scroll"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.12,
+      },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (id: string) => {

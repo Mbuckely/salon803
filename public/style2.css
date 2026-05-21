@@ -14,6 +14,7 @@
 
   /* Accents */
   --accent: hsl(188 38% 48%);
+  --menu-gold: #d4b16a;
   --muted: hsl(24 12% 96%);
   --muted-foreground: hsl(24 10% 45%);
 
@@ -147,14 +148,23 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   background: transparent;
   color:#fff;
   text-align:center;
-  padding:60px 20px 30px;
+  padding:52px 20px 22px;
   position: relative;
   z-index: 1;
+}
+#view-services .services-nav{
+  margin-bottom:1rem;
+}
+#view-services .subtitle{
+  text-transform:uppercase;
+  letter-spacing:3px;
+  opacity:.9;
 }
 #view-services .section-title{
   color:#fff;
   font-family:'Playfair Display',serif;
-  font-size: clamp(2rem, 2.8vw, 2.4rem);
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height:.95;
   margin: 10px 0 0;
 }
 #view-services .section-subtitle{
@@ -166,11 +176,76 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 
 /* Content on gradient */
 #view-services main.section{
-  max-width: 1100px;
+  max-width: 1040px;
   margin: 0 auto 60px;
   padding: 0 20px 40px;
   position: relative;
   z-index: 1;
+}
+
+#view-services .menu-board{
+  max-width: 900px;
+  margin: 0 auto;
+}
+#view-services .menu-panel{
+  padding: 1.5rem 0 2.5rem;
+}
+#view-services .packages-panel{
+  margin-top: 2rem;
+}
+#view-services .menu-heading{
+  color:#fff;
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  font-weight:600;
+  line-height:1;
+  text-align:center;
+  text-transform:uppercase;
+  margin:0 0 1.5rem;
+}
+#view-services .service-row{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) auto;
+  gap:1.25rem;
+  align-items:start;
+  padding:1.1rem 0 1.05rem;
+  border-bottom:1px dashed rgba(255,255,255,.48);
+}
+#view-services .service-row h3{
+  color:#fff;
+  font-size:clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight:600;
+  line-height:1.12;
+  margin:0 0 .35rem;
+}
+#view-services .service-row p{
+  color:#e6f6f8;
+  font-size:.98rem;
+  line-height:1.45;
+  margin:0;
+  opacity:.9;
+}
+#view-services .service-row .price{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:6.25rem;
+  color:var(--menu-gold);
+  font-size:1.05rem;
+  font-weight:700;
+  white-space:nowrap;
+  padding-top:.2rem;
+}
+#view-services .service-row .price::after{
+  content:"";
+  width:1.85rem;
+  height:1.85rem;
+  margin-left:.75rem;
+  border:1px solid currentColor;
+  border-radius:999px;
+  background:
+    linear-gradient(currentColor, currentColor) center / .65rem 1px no-repeat,
+    linear-gradient(45deg, transparent 50%, currentColor 50%) 56% 50% / .42rem .42rem no-repeat;
+  opacity:.9;
 }
 
 /* Services grid + cards */
@@ -200,6 +275,38 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 }
 
 /* On-gradient “Back” button style */
+/* Scroll reveal */
+#view-services .reveal-on-scroll{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s ease;
+  will-change:opacity, transform;
+}
+#view-services .reveal-on-scroll.reveal-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+#view-services .service-card.reveal-on-scroll:nth-child(2),
+#view-services .panel .service-card.reveal-on-scroll:nth-child(2){
+  transition-delay:.08s;
+}
+#view-services .service-card.reveal-on-scroll:nth-child(3),
+#view-services .panel .service-card.reveal-on-scroll:nth-child(3){
+  transition-delay:.16s;
+}
+#view-services .service-card.reveal-on-scroll:nth-child(4){
+  transition-delay:.24s;
+}
+#view-services .service-row.reveal-on-scroll:nth-of-type(2){
+  transition-delay:.06s;
+}
+#view-services .service-row.reveal-on-scroll:nth-of-type(3){
+  transition-delay:.12s;
+}
+#view-services .service-row.reveal-on-scroll:nth-of-type(4){
+  transition-delay:.18s;
+}
+
 #view-services .btn.btn-secondary{
   background: transparent;
   color:#fff;
@@ -233,6 +340,29 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 @media (max-width:768px){
   .btn{width:100%}
   #view-services .services-grid{grid-template-columns:1fr}
+  #view-services header.section{padding-top:42px}
+  #view-services .menu-panel{padding-bottom:1.5rem}
+  #view-services .service-row{
+    grid-template-columns:1fr;
+    gap:.65rem;
+    padding:1rem 0;
+  }
+  #view-services .service-row .price{
+    justify-content:flex-start;
+    padding-top:0;
+  }
+  #view-services .service-row .price::after{
+    width:1.55rem;
+    height:1.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #view-services .reveal-on-scroll{
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
 }
 
 /* Tiny fade-in */
