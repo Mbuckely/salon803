@@ -235,19 +235,6 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   white-space:nowrap;
   padding-top:.2rem;
 }
-#view-services .service-row .price::after{
-  content:"";
-  width:1.85rem;
-  height:1.85rem;
-  margin-left:.75rem;
-  border:1px solid currentColor;
-  border-radius:999px;
-  background:
-    linear-gradient(currentColor, currentColor) center / .65rem 1px no-repeat,
-    linear-gradient(45deg, transparent 50%, currentColor 50%) 56% 50% / .42rem .42rem no-repeat;
-  opacity:.9;
-}
-
 /* Services grid + cards */
 #view-services .services-grid{
   display:grid;
@@ -350,10 +337,6 @@ h1,h2,h3{font-family:'Playfair Display',serif}
   #view-services .service-row .price{
     justify-content:flex-start;
     padding-top:0;
-  }
-  #view-services .service-row .price::after{
-    width:1.55rem;
-    height:1.55rem;
   }
 }
 
